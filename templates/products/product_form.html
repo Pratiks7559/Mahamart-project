@@ -1,0 +1,226 @@
+{% include 'includes/store_shell_start.html' with page_title=page_title page_css='css/pages/product_form.css' full_bleed=True %}
+<section class="product-form-section product-entry-page">
+    <div class="form-container product-entry-card">
+        <div class="form-header">
+            <span class="entry-kicker">STORE CATALOG</span>
+            <h1>{{ page_title }}</h1>
+            <p>{% if is_edit %}Update product details{% else %}Add a new product to your store{% endif %}</p>
+        </div>
+
+        {% if messages %}
+            <div class="messages-container">
+                {% for message in messages %}
+                    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data" class="product-form">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Category</label>
+                    <div class="category-input-row">
+                        {{ form.category }}
+                        <button type="button" class="btn-add-category" id="openCategoryModal" title="Add new category">+</button>
+                    </div>
+                    {% if form.category.errors %}
+                        <div class="field-errors">{{ form.category.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">Product Name</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                        <div class="field-errors">{{ form.name.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.sku.id_for_label }}">SKU</label>
+                    {{ form.sku }}
+                    {% if form.sku.errors %}
+                        <div class="field-errors">{{ form.sku.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.slug.id_for_label }}">URL Slug</label>
+                    {{ form.slug }}
+                    <small class="help-text">{{ form.slug.help_text }}</small>
+                    {% if form.slug.errors %}
+                        <div class="field-errors">{{ form.slug.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.price.id_for_label }}">Regular Price (₹)</label>
+                    {{ form.price }}
+                    {% if form.price.errors %}
+                        <div class="field-errors">{{ form.price.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.stock.id_for_label }}">Stock Quantity</label>
+                    {{ form.stock }}
+                    <small class="help-text">{{ form.stock.help_text }}</small>
+                    {% if form.stock.errors %}
+                        <div class="field-errors">{{ form.stock.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.discount_type.id_for_label }}">Discount Type</label>
+                    {{ form.discount_type }}
+                    {% if form.discount_type.errors %}
+                        <div class="field-errors">{{ form.discount_type.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.discount_value.id_for_label }}">Discount Value (₹ or %)</label>
+                    {{ form.discount_value }}
+                    <small class="help-text">Flat is deducted in rupees; Percentage is deducted from regular price.</small>
+                    {% if form.discount_value.errors %}
+                        <div class="field-errors">{{ form.discount_value.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.main_image.id_for_label }}">Product Image</label>
+                    {{ form.main_image }}
+                    {% if is_edit and product.main_image %}
+                        <div class="current-image">
+                            <p>Current Image:</p>
+                            <img src="{{ product.main_image.url }}" alt="{{ product.name }}" class="image-preview">
+                        </div>
+                    {% endif %}
+                    {% if form.main_image.errors %}
+                        <div class="field-errors">{{ form.main_image.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group form-group-wide">
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="field-errors">{{ form.description.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-row checkbox-row">
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        {{ form.is_featured }}
+                        <span class="checkbox-text">{{ form.is_featured.label }}</span>
+                    </label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        {{ form.is_active }}
+                        <span class="checkbox-text">{{ form.is_active.label }}</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    {% if is_edit %}Update Product{% else %}Add Product{% endif %}
+                </button>
+                <a href="{% url 'products:product_list_admin' %}" class="btn btn-outline btn-lg">Cancel</a>
+                {% if is_edit %}
+                    <a href="{% url 'products:product_delete' product.id %}" class="btn btn-danger btn-lg" onclick="return confirm('Are you sure you want to delete this product?');">Delete Product</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Add Category Modal -->
+<div class="modal-overlay" id="categoryModal">
+    <div class="modal-box">
+        <h3>Add New Category</h3>
+        <input type="text" id="newCategoryName" placeholder="Enter category name" autocomplete="off">
+        <div class="modal-error" id="categoryError"></div>
+        <div class="modal-actions">
+            <button type="button" class="btn btn-outline" id="closeCategoryModal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="saveCategoryBtn">Save Category</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const modal = document.getElementById('categoryModal');
+const openBtn = document.getElementById('openCategoryModal');
+const closeBtn = document.getElementById('closeCategoryModal');
+const saveBtn = document.getElementById('saveCategoryBtn');
+const catNameInput = document.getElementById('newCategoryName');
+const errorDiv = document.getElementById('categoryError');
+const categorySelect = document.getElementById('{{ form.category.id_for_label }}');
+
+openBtn.addEventListener('click', function() {
+    modal.classList.add('active');
+    catNameInput.value = '';
+    errorDiv.textContent = '';
+    catNameInput.focus();
+});
+
+closeBtn.addEventListener('click', function() {
+    modal.classList.remove('active');
+});
+
+modal.addEventListener('click', function(e) {
+    if (e.target === modal) modal.classList.remove('active');
+});
+
+catNameInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') saveBtn.click();
+});
+
+saveBtn.addEventListener('click', function() {
+    const name = catNameInput.value.trim();
+    if (!name) { errorDiv.textContent = 'Please enter a category name.'; return; }
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Saving...';
+
+    fetch('{% url "products:category_add_ajax" %}', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'name=' + encodeURIComponent(name)
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            const option = new Option(data.name, data.id, true, true);
+            categorySelect.add(option);
+            categorySelect.value = data.id;
+            modal.classList.remove('active');
+        } else {
+            errorDiv.textContent = data.error;
+        }
+    })
+    .catch(() => { errorDiv.textContent = 'Something went wrong. Try again.'; })
+    .finally(() => { saveBtn.disabled = false; saveBtn.textContent = 'Save Category'; });
+});
+
+// Auto-generate slug from product name
+document.addEventListener('DOMContentLoaded', function() {
+    const nameInput = document.getElementById('{{ form.name.id_for_label }}');
+    const slugInput = document.getElementById('{{ form.slug.id_for_label }}');
+    if (nameInput && slugInput) {
+        nameInput.addEventListener('blur', function() {
+            if (!slugInput.value) {
+                slugInput.value = this.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            }
+        });
+    }
+});
+</script>
+{% include 'includes/store_shell_end.html' with full_bleed=True %}

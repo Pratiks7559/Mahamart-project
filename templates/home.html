@@ -1,0 +1,145 @@
+{% load static %}
+{% include 'includes/store_shell_start.html' with page_title=page_title page_css='css/pages/home.css' %}
+
+<section class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">Welcome to <span class="highlight">MahaMart</span></h1>
+        <p class="hero-subtitle">Discover amazing products at the best prices</p>
+
+        <div class="hero-search">
+            <form action="{% url 'products:product_list' %}" method="GET" class="search-form-hero">
+                <input type="text" name="q" placeholder="Search for products, categories, brands..."
+                       class="search-input-hero" id="searchInput" autocomplete="off">
+                <button type="submit" class="btn btn-search-hero">🔍 Search</button>
+                <div id="searchSuggestions" class="search-suggestions"></div>
+            </form>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-number">{{ categories.count }}+</span>
+                <span class="stat-label">Categories</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">{{ trending_products.count }}+</span>
+                <span class="stat-label">Products</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Quality</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="trending-section">
+    <div class="section-header">
+        <h2 class="section-title">🔥 Trending Products</h2>
+        <a href="{% url 'products:product_list' %}" class="view-all-link">View All →</a>
+    </div>
+    <div class="product-grid">
+        {% for product in trending_products %}
+            <div class="product-card">
+                <div class="product-image-container">
+                    <a href="{% url 'products:product_detail' product.slug %}">
+                        {% if product.main_image %}
+                            <img src="{{ product.main_image.url }}" alt="{{ product.name }}" class="product-image">
+                        {% else %}
+                            <div class="product-image-placeholder"><span>No Image</span></div>
+                        {% endif %}
+                    </a>
+                    {% if product.discount_percentage > 0 %}
+                        <span class="discount-badge">-{{ product.discount_percentage|floatformat:0 }}%</span>
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <span class="product-category">{{ product.category.name }}</span>
+                    <h3 class="product-name">
+                        <a href="{% url 'products:product_detail' product.slug %}">{{ product.name }}</a>
+                    </h3>
+                    <div class="product-price">
+                        {% if product.discount_value %}
+                            <span class="original-price">₹{{ product.customer_price }}</span>
+                            <span class="discount-price">₹{{ product.customer_discount_price }}</span>
+                        {% else %}
+                            <span class="regular-price">₹{{ product.customer_price }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="product-stock">
+                        {% if product.is_in_stock %}
+                            <span class="stock-status in-stock">✓ In Stock</span>
+                        {% else %}
+                            <span class="stock-status out-of-stock">✗ Out of Stock</span>
+                        {% endif %}
+                    </div>
+                    <div class="product-actions">
+                        {% if user.is_authenticated %}
+                            <form method="POST" action="{% url 'products:add_to_cart' %}" style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ product.id }}">
+                                <button type="submit" class="btn btn-primary btn-sm">🛒 Add to Cart</button>
+                            </form>
+                            <a href="{% url 'products:product_detail' product.slug %}" class="btn btn-outline btn-sm">Buy Now</a>
+                        {% else %}
+                            <button onclick="showLoginAlert()" class="btn btn-primary btn-sm">🛒 Add to Cart</button>
+                            <button onclick="showLoginAlert()" class="btn btn-outline btn-sm">Buy Now</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty-state"><p>No products available.</p></div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="categories-section">
+    <h2 class="section-title">Shop by Category</h2>
+    <div class="categories-grid">
+        {% for category in categories %}
+            <a href="{% url 'products:category_products' category.slug %}" class="category-card">
+                {% if category.image %}
+                    <img src="{{ category.image.url }}" alt="{{ category.name }}" class="category-image">
+                {% else %}
+                    <div class="category-image-placeholder">
+                        <span>{{ category.name|slice:":2"|upper }}</span>
+                    </div>
+                {% endif %}
+                <h3 class="category-name">{{ category.name }}</h3>
+                <span class="category-count">{{ category.products.count }} products</span>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="features-section">
+    <div class="features-grid">
+        <div class="feature-card">
+            <span class="feature-icon">🚚</span>
+            <h3>Free Shipping</h3>
+            <p>On orders over ₹50</p>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🔄</span>
+            <h3>Easy Returns</h3>
+            <p>30-day return policy</p>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🔒</span>
+            <h3>Secure Payment</h3>
+            <p>100% secure checkout</p>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">💬</span>
+            <h3>24/7 Support</h3>
+            <p>Dedicated customer service</p>
+        </div>
+    </div>
+</section>
+
+<script>
+function showLoginAlert() {
+    alert('Please login to add items to cart or buy now.');
+}
+</script>
+{% include 'includes/store_shell_end.html' %}

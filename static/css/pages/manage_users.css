@@ -1,0 +1,12 @@
+.user-status-form { display: inline; }
+
+.user-status-button {
+    color: #fff;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.user-status-button.is-active { background: #dc3545; }
+.user-status-button.is-inactive { background: #28a745; }

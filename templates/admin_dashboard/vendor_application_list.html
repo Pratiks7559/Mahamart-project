@@ -1,0 +1,15 @@
+{% include 'includes/admin_shell_start.html' with page_title=title page_css='css/pages/vendor_application_list.css' %}
+
+<section class="vendor-page">
+    <a class="vendor-back-link" href="{% url 'admin_dashboard:manage_vendors' %}">← All vendor applications</a>
+    <header class="vendor-page-heading">
+        <div>
+            <p class="vendor-eyebrow">{{ eyebrow }}</p>
+            <h1>{{ title }}</h1>
+            <p class="vendor-page-subtitle">Open a vendor record to view its full application details.</p>
+        </div>
+        <div class="vendor-total"><strong>{{ applications.count }}</strong><span>applications</span></div>
+    </header>
+    {% include 'admin_dashboard/_vendor_application_table.html' with applications=applications status_label=title %}
+</section>
+{% include 'includes/admin_shell_end.html' %}

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 140" width="460" height="140" role="img" aria-label="MahaMart Lotus Logo">
+  <defs>
+    <linearGradient id="lotusPetal" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF7BA1"/>
+      <stop offset="45%" stop-color="#E94F7C"/>
+      <stop offset="100%" stop-color="#B87400"/>
+    </linearGradient>
+    <linearGradient id="lotusPetalLight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF0F4"/>
+      <stop offset="60%" stop-color="#FFD8E2"/>
+      <stop offset="100%" stop-color="#E94F7C"/>
+    </linearGradient>
+    <linearGradient id="lotusGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD86B"/>
+      <stop offset="50%" stop-color="#E8A317"/>
+      <stop offset="100%" stop-color="#B87400"/>
+    </linearGradient>
+    <linearGradient id="lotusInk" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2B1C2B"/>
+      <stop offset="100%" stop-color="#5A1836"/>
+    </linearGradient>
+    <filter id="lotusGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g transform="translate(20, 15)" filter="url(#lotusGlow)">
+    <ellipse cx="55" cy="106" rx="38" ry="3" fill="#E94F7C" opacity="0.15"/>
+    <path d="M55 100 Q55 90 55 84" stroke="url(#lotusGold)" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M55 88 C30 88 12 74 14 50 C16 32 30 22 40 34 C48 44 52 66 55 84 Z" fill="url(#lotusPetal)"/>
+    <path d="M55 88 C80 88 98 74 96 50 C94 32 80 22 70 34 C62 44 58 66 55 84 Z" fill="url(#lotusPetal)"/>
+    <path d="M55 82 C40 82 28 66 32 46 C35 32 45 26 50 42 C53 54 54 68 55 80 Z" fill="url(#lotusPetalLight)"/>
+    <path d="M55 82 C70 82 82 66 78 46 C75 32 65 26 60 42 C57 54 56 68 55 80 Z" fill="url(#lotusPetalLight)"/>
+    <path d="M55 84 C47 84 44 60 47 38 C49 24 53 14 55 8 C57 14 61 24 63 38 C66 60 63 84 55 84 Z" fill="url(#lotusGold)"/>
+    <path d="M55 20 L55 78" stroke="#FFF6DA" stroke-width="1.2" opacity="0.7" stroke-linecap="round"/>
+    <ellipse cx="55" cy="42" rx="2.2" ry="5" fill="#FFF6DA" opacity="0.85"/>
+    <path d="M55 88 C30 88 12 74 14 50" stroke="url(#lotusGold)" stroke-width="1.5" fill="none" opacity="0.6" stroke-linecap="round"/>
+    <path d="M55 88 C80 88 98 74 96 50" stroke="url(#lotusGold)" stroke-width="1.5" fill="none" opacity="0.6" stroke-linecap="round"/>
+    <circle cx="55" cy="30" r="1.8" fill="#FFFFFF" opacity="0.9"/>
+  </g>
+  <text x="150" y="74" font-family="'Fraunces', 'Playfair Display', Georgia, serif" font-size="52" font-weight="900" letter-spacing="-2" fill="url(#lotusInk)">Maha</text>
+  <text x="286" y="74" font-family="'Fraunces', 'Playfair Display', Georgia, serif" font-size="52" font-weight="900" letter-spacing="-2" fill="url(#lotusPetal)">Mart</text>
+  <text x="152" y="98" font-family="'Plus Jakarta Sans', Inter, sans-serif" font-size="10.5" font-weight="700" letter-spacing="6.5" fill="#8A8170">PURE · PREMIUM · EVERYDAY</text>
+  <line x1="152" y1="106" x2="230" y2="106" stroke="url(#lotusGold)" stroke-width="2" stroke-linecap="round"/>
+</svg>

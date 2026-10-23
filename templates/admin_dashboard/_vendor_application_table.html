@@ -1,0 +1,23 @@
+<div class="admin-card vendor-list-card">
+    <div class="vendor-list-scroll">
+        <table class="admin-table vendor-summary-table">
+            <caption class="sr-only">{{ status_label }}</caption>
+            <thead>
+                <tr><th>Shop</th><th>Applicant</th><th>Submitted</th><th>Status</th><th><span class="sr-only">Action</span></th></tr>
+            </thead>
+            <tbody>
+                {% for application in applications %}
+                    <tr>
+                        <td><span class="vendor-shop-name">{{ application.shop_name }}</span></td>
+                        <td>{{ application.full_name }}</td>
+                        <td>{{ application.submitted_at|date:"M j, Y" }}</td>
+                        <td><span class="vendor-status vendor-status-{{ application.status }}">{{ application.get_status_display }}</span></td>
+                        <td class="vendor-action-cell"><a class="vendor-view-button" href="{% url 'admin_dashboard:vendor_application_detail' application.id %}">View details <span aria-hidden="true">→</span></a></td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="5" class="no-data">No {{ status_label|lower }}.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+{% include 'includes/store_shell_start.html' with page_title='User Login' page_css='css/pages/account_login.css' %}
+
+<div class="auth-container">
+    <div class="auth-card">
+        <aside class="auth-brand-panel" aria-label="A welcome for shoppers">
+            <span class="auth-brand-eyebrow">YOUR HAPPY PLACE</span>
+            <h1>Good to see you again.</h1>
+            <p>Sign in to find everyday essentials, lovely little discoveries, and picks you'll feel good bringing home.</p>
+            <div class="auth-brand-art" aria-hidden="true">
+                <span class="auth-brand-art-sparkle">✦</span>
+                <div class="auth-brand-art-card">
+                    <span>A LITTLE SOMETHING FOR YOU</span>
+                    <strong>Something lovely is waiting.</strong>
+                </div>
+            </div>
+            <div class="auth-brand-points">
+                <span><span aria-hidden="true">✓</span> Useful finds for every day</span>
+                <span><span aria-hidden="true">✓</span> Little treats, easy to discover</span>
+                <span><span aria-hidden="true">✓</span> A simple, comfortable way to shop</span>
+            </div>
+            <span class="auth-brand-note">Make yourself at home.</span>
+        </aside>
+        <section class="auth-content-panel" aria-label="Login form">
+            <div class="auth-header">
+                <h2>Welcome Back</h2>
+                <p>Login to your account</p>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="{% url 'accounts:login' %}" class="auth-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="phone">Mobile Number</label>
+                    <input type="tel"
+                           id="phone"
+                           name="phone"
+                           placeholder="Enter your registered mobile number"
+                           class="form-input"
+                           autocomplete="tel"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           placeholder="Enter your password"
+                           class="form-input"
+                           autocomplete="current-password"
+                           required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">Login</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="{% url 'accounts:register' %}">Register here</a></p>
+            </div>
+        </section>
+    </div>
+</div>
+{% include 'includes/store_shell_end.html' %}

@@ -1,0 +1,457 @@
+/* ==========================================================================
+   MANAGE VENDORS — "BLUEPRINT GRID" EDITION
+   Place at: static/css/pages/manage_vendors.css
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ==========================================================================
+   TOKENS
+   ========================================================================== */
+:root {
+    /* Surfaces */
+    --bp-bg:         #eef1f6;
+    --bp-paper:      #f7f9fc;
+    --bp-card:       #ffffff;
+    --bp-soft:       #f2f5fa;
+    --bp-grid:       rgba(37, 99, 235, .06);
+
+    /* Lines */
+    --bp-line:       #d5dce8;
+    --bp-line-2:     #b6c1d4;
+    --bp-line-bold:  #1e293b;
+
+    /* Ink */
+    --bp-ink:        #0f172a;
+    --bp-ink-2:      #475569;
+    --bp-ink-3:      #8896ab;
+
+    /* Accents */
+    --bp-cobalt:     #2563eb;
+    --bp-cobalt-2:   #3b82f6;
+    --bp-cobalt-soft:#e3ebfd;
+
+    --bp-amber:      #d97706;
+    --bp-amber-soft: #fef4e2;
+
+    --bp-mint:       #059669;
+    --bp-mint-soft:  #e3f6ef;
+
+    --bp-rust:       #b91c1c;
+    --bp-rust-soft:  #fbeaea;
+
+    /* Radii */
+    --bp-r-xs: 3px;
+    --bp-r-sm: 5px;
+    --bp-r-md: 8px;
+    --bp-r-lg: 12px;
+
+    /* Shadows */
+    --bp-shadow-xs: 0 1px 2px rgba(15, 23, 42, .05);
+    --bp-shadow-sm: 0 3px 10px -4px rgba(15, 23, 42, .12);
+    --bp-shadow-md: 0 10px 26px -12px rgba(15, 23, 42, .22);
+}
+
+/* ==========================================================================
+   PAGE SHELL
+   ========================================================================== */
+.vendor-page {
+    position: relative;
+    padding: clamp(16px, 2.2vw, 32px);
+    font-family: "Archivo", "Inter", system-ui, -apple-system, sans-serif;
+    color: var(--bp-ink);
+    background-color: var(--bp-bg);
+    /* Blueprint grid — subtle blue lines */
+    background-image:
+        linear-gradient(var(--bp-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bp-grid) 1px, transparent 1px),
+        linear-gradient(rgba(37, 99, 235, .03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, .03) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    border-radius: var(--bp-r-md);
+    min-height: 60vh;
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+.vendor-page-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--bp-line-bold);
+    position: relative;
+}
+
+/* Dashed second line under the bold one — technical drawing feel */
+.vendor-page-heading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 1px;
+    background-image: linear-gradient(90deg,
+        var(--bp-line-2) 50%, transparent 50%);
+    background-size: 8px 1px;
+}
+
+.vendor-eyebrow {
+    margin: 0 0 6px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: .68rem;
+    font-weight: 500;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--bp-cobalt);
+    padding-left: 26px;
+    position: relative;
+}
+
+.vendor-eyebrow::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 1px;
+    background: var(--bp-cobalt);
+}
+
+.vendor-page-heading h1 {
+    margin: 0 0 6px;
+    font-family: "Archivo Narrow", "Archivo", sans-serif;
+    font-size: clamp(1.4rem, 2.6vw, 1.95rem);
+    font-weight: 700;
+    letter-spacing: -.018em;
+    line-height: 1.05;
+    color: var(--bp-ink);
+}
+
+.vendor-page-subtitle {
+    margin: 0;
+    font-size: .86rem;
+    font-weight: 500;
+    color: var(--bp-ink-2);
+    letter-spacing: -.003em;
+}
+
+/* Total applications box — technical spec style */
+.vendor-total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    padding: 12px 18px;
+    background: var(--bp-card);
+    border: 1.5px solid var(--bp-line-bold);
+    border-radius: var(--bp-r-xs);
+    box-shadow:
+        inset 0 0 0 4px var(--bp-card),
+        inset 0 0 0 5px var(--bp-line),
+        var(--bp-shadow-sm);
+    position: relative;
+}
+
+/* Corner tick marks */
+.vendor-total::before,
+.vendor-total::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--bp-cobalt);
+}
+.vendor-total::before { top: -3px; left: -3px; }
+.vendor-total::after  { bottom: -3px; right: -3px; }
+
+.vendor-total strong {
+    font-family: "Archivo Narrow", sans-serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: 1;
+    color: var(--bp-ink);
+    font-variant-numeric: tabular-nums;
+}
+
+.vendor-total span {
+    font-family: "JetBrains Mono", monospace;
+    font-size: .64rem;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--bp-ink-3);
+}
+
+/* ==========================================================================
+   STATUS GRID
+   ========================================================================== */
+.vendor-status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+/* ==========================================================================
+   STATUS CARD
+   ========================================================================== */
+.vendor-status-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 22px 22px 20px;
+    background: var(--bp-card);
+    border: 1.5px solid var(--bp-line);
+    border-radius: var(--bp-r-md);
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    box-shadow: var(--bp-shadow-xs);
+    transition: transform .22s cubic-bezier(.2, .85, .3, 1),
+                box-shadow .22s ease,
+                border-color .2s ease;
+}
+
+/* Corner crosshair — blueprint drawing marker */
+.vendor-status-card::before {
+    content: "+";
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: .85rem;
+    font-weight: 400;
+    color: var(--bp-line-2);
+    line-height: 1;
+    transition: color .2s ease, transform .3s ease;
+    pointer-events: none;
+}
+
+/* Left color bar */
+.vendor-status-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--bp-cobalt);
+}
+
+.vendor-status-card-pending::after   { background: var(--bp-amber); }
+.vendor-status-card-approved::after  { background: var(--bp-mint); }
+.vendor-status-card-rejected::after  { background: var(--bp-rust); }
+
+.vendor-status-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--bp-shadow-md);
+    border-color: var(--bp-line-2);
+}
+
+.vendor-status-card:hover::before {
+    color: var(--bp-cobalt);
+    transform: rotate(90deg);
+}
+
+/* Eyebrow label at top of card */
+.vendor-card-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: .62rem;
+    font-weight: 500;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--bp-ink-3);
+    padding-left: 14px;
+    position: relative;
+}
+
+.vendor-card-label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.vendor-status-card-pending .vendor-card-label::before {
+    background: var(--bp-amber);
+    border-color: var(--bp-amber);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, .15);
+}
+.vendor-status-card-approved .vendor-card-label::before {
+    background: var(--bp-mint);
+    border-color: var(--bp-mint);
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, .15);
+}
+.vendor-status-card-rejected .vendor-card-label::before {
+    background: var(--bp-rust);
+    border-color: var(--bp-rust);
+    box-shadow: 0 0 0 3px rgba(185, 28, 28, .15);
+}
+
+/* Big number */
+.vendor-status-card strong {
+    font-family: "Archivo Narrow", sans-serif;
+    font-size: clamp(2rem, 4.2vw, 2.9rem);
+    font-weight: 700;
+    letter-spacing: -.035em;
+    line-height: 1;
+    color: var(--bp-ink);
+    font-variant-numeric: tabular-nums;
+    margin: 6px 0 2px;
+}
+
+/* Title below number */
+.vendor-card-title {
+    font-family: "Archivo", sans-serif;
+    font-size: .96rem;
+    font-weight: 600;
+    letter-spacing: -.008em;
+    line-height: 1.35;
+    color: var(--bp-ink-2);
+    margin-bottom: 12px;
+}
+
+/* Action link with arrow */
+.vendor-card-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px dashed var(--bp-line);
+    font-family: "JetBrains Mono", monospace;
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--bp-cobalt);
+    transition: color .16s ease, letter-spacing .25s ease;
+}
+
+.vendor-card-action span[aria-hidden="true"] {
+    display: inline-block;
+    transition: transform .25s cubic-bezier(.2, .85, .3, 1);
+}
+
+.vendor-status-card:hover .vendor-card-action {
+    color: var(--bp-ink);
+    letter-spacing: .16em;
+}
+
+.vendor-status-card:hover .vendor-card-action span[aria-hidden="true"] {
+    transform: translateX(6px);
+}
+
+/* Card-specific hover color for action */
+.vendor-status-card-pending:hover .vendor-card-action  { color: var(--bp-amber); }
+.vendor-status-card-approved:hover .vendor-card-action { color: var(--bp-mint); }
+.vendor-status-card-rejected:hover .vendor-card-action { color: var(--bp-rust); }
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* Tablet — 2 columns, third card full width */
+@media (max-width: 900px) {
+    .vendor-status-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .vendor-status-card:last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Small tablet */
+@media (max-width: 640px) {
+    .vendor-page {
+        padding: 14px 12px;
+        border-radius: 0;
+        background-size: 60px 60px, 60px 60px, 16px 16px, 16px 16px;
+    }
+
+    .vendor-page-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .vendor-total {
+        align-self: stretch;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 16px;
+    }
+
+    .vendor-total strong { font-size: 1.4rem; }
+
+    .vendor-page-heading h1 { font-size: 1.35rem; }
+
+    .vendor-page-subtitle { font-size: .8rem; }
+
+    .vendor-status-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .vendor-status-card:last-child { grid-column: auto; }
+
+    .vendor-status-card {
+        padding: 18px 18px 16px;
+        gap: 4px;
+    }
+
+    .vendor-status-card strong { font-size: 1.85rem; }
+
+    .vendor-card-title { font-size: .9rem; margin-bottom: 10px; }
+
+    .vendor-card-action { font-size: .66rem; padding-top: 10px; }
+}
+
+/* Very small */
+@media (max-width: 400px) {
+    .vendor-page { padding: 12px 10px; }
+
+    .vendor-eyebrow { font-size: .62rem; letter-spacing: .18em; }
+
+    .vendor-page-heading h1 { font-size: 1.2rem; }
+
+    .vendor-status-card { padding: 16px 16px 14px; }
+
+    .vendor-status-card strong { font-size: 1.65rem; }
+
+    .vendor-card-label { font-size: .58rem; letter-spacing: .16em; }
+}
+
+/* ==========================================================================
+   A11Y
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .vendor-page *,
+    .vendor-page *::before,
+    .vendor-page *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+    }
+}
+
+/* Focus visibility */
+.vendor-status-card:focus-visible {
+    outline: 2px solid var(--bp-cobalt);
+    outline-offset: 3px;
+}

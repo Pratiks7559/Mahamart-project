@@ -1,0 +1,71 @@
+{% include 'includes/store_shell_start.html' with page_title='About Us' page_css='css/pages/info_pages.css' %}
+
+<main class="info-page about-page">
+    <section class="info-hero about-hero">
+        <div class="info-hero-copy">
+            <span class="info-eyebrow">A LITTLE MORE THOUGHT IN EVERYDAY SHOPPING</span>
+            <h1>Good finds.<br><span>Good everyday.</span></h1>
+            <p>We bring useful discoveries and everyday favourites together, so finding something just right feels simple.</p>
+            <a class="info-button info-button-primary" href="{% url 'products:product_list' %}">Explore the shop <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="about-showcase" aria-label="A peek at products in the shop">
+            <span class="showcase-orbit showcase-orbit-one"></span>
+            <span class="showcase-orbit showcase-orbit-two"></span>
+            {% for product in featured_products %}
+                <a class="showcase-product showcase-product-{{ forloop.counter }}" href="{% url 'products:product_detail' product.slug %}" aria-label="Explore {{ product.name }}">
+                    <img src="{{ product.main_image.url }}" alt="{{ product.name }}">
+                    <span>{{ product.name }}</span>
+                </a>
+            {% empty %}
+                <div class="showcase-note">
+                    <span aria-hidden="true">✦</span>
+                    <strong>Everyday discoveries</strong>
+                    <span>Waiting to be explored</span>
+                </div>
+            {% endfor %}
+            <span class="showcase-sticker">FIND YOUR<br>FAVOURITE</span>
+        </div>
+    </section>
+
+    <section class="info-section about-intro">
+        <div class="section-kicker">THE IDEA</div>
+        <div>
+            <h2>Shopping should feel easy to explore.</h2>
+            <p>From browsing products by category to checking the details before you choose, MahaMart is designed to help you discover items that fit your everyday life.</p>
+        </div>
+    </section>
+
+    <section class="about-values" aria-label="What you can do here">
+        <article class="value-card value-card-rose">
+            <span class="value-number">01</span>
+            <span class="value-icon" aria-hidden="true">⌕</span>
+            <h2>Explore your way</h2>
+            <p>Browse the full shop, explore product categories, or search for something specific.</p>
+        </article>
+        <article class="value-card value-card-gold">
+            <span class="value-number">02</span>
+            <span class="value-icon" aria-hidden="true">♡</span>
+            <h2>Choose with clarity</h2>
+            <p>Open a product to see its description, price, category and availability.</p>
+        </article>
+        <article class="value-card value-card-plum">
+            <span class="value-number">03</span>
+            <span class="value-icon" aria-hidden="true">↗</span>
+            <h2>Grow together</h2>
+            <p>Local businesses can apply to become vendors and submit products for review.</p>
+        </article>
+    </section>
+
+    <section class="about-bottom">
+        <div>
+            <span class="info-eyebrow">YOUR NEXT DISCOVERY IS A CLICK AWAY</span>
+            <h2>Take a look around.</h2>
+        </div>
+        <div class="about-bottom-actions">
+            <a class="info-button info-button-light" href="{% url 'products:product_list' %}">Browse products <span aria-hidden="true">→</span></a>
+            <a class="info-text-link" href="{% url 'products:help_center' %}">Need a little help? Visit the Help Center</a>
+        </div>
+    </section>
+</main>
+
+{% include 'includes/store_shell_end.html' %}

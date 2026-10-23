@@ -1,0 +1,44 @@
+{% load static %}
+{% include 'includes/store_shell_start.html' with page_title='Vendor Registration - MahaMart' page_css='css/pages/vendor_register.css' %}
+
+<div class="auth-container">
+    <section class="auth-card auth-card-large">
+        <header class="auth-header">
+            <h2>Vendor Registration</h2>
+            <p>Submit your shop details for verification</p>
+        </header>
+
+        <div class="vendor-note">All fields are required. Your vendor login will be sent to your email after admin verification.</div>
+
+        {% if form.errors %}
+            <div class="field-errors" role="alert">
+                Application was not submitted. Please correct the errors below.
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}<li><a href="#{{ field.id_for_label }}">{{ field.label }}: {{ error }}</a></li>{% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <form method="post" action="{% url 'accounts:vendor_register' %}" class="auth-form vendor-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
+                    {{ field }}
+                    {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+                    {% for error in field.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-full">Submit application</button>
+        </form>
+        <div class="auth-footer"><a href="{% url 'accounts:vendor_login' %}">Already approved? Vendor login</a></div>
+    </section>
+</div>
+{% if submitted %}
+<script>
+    window.alert('Form submitted successfully. Once your details are verified, the admin will send your login ID and password to your email.');
+</script>
+{% endif %}
+{% include 'includes/store_shell_end.html' %}

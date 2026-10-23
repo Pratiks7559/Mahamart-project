@@ -1,0 +1,559 @@
+/* ==========================================================================
+   VENDOR APPLICATION LIST — "TOPOGRAPHIC ARCHIVE" EDITION
+   Place at: static/css/pages/vendor_application_list.css
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=Karla:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+/* ==========================================================================
+   TOKENS
+   ========================================================================== */
+:root {
+    /* Surfaces — misty sage */
+    --ta-bg:         #e9ede3;
+    --ta-bg-2:       #dfe5d5;
+    --ta-paper:      #f2f4ec;
+    --ta-card:       #fbfcf6;
+    --ta-panel:      #f5f7ed;
+
+    /* Lines */
+    --ta-line:       #b8c1a8;
+    --ta-line-2:     #8f9c7a;
+    --ta-line-bold:  #2d3a20;
+
+    /* Ink */
+    --ta-ink:        #1f2a17;
+    --ta-ink-2:      #48563a;
+    --ta-ink-3:      #7a8a68;
+
+    /* Accents */
+    --ta-moss:       #4a6b1f;
+    --ta-moss-2:     #6b9128;
+    --ta-moss-soft:  #e4ebd2;
+
+    --ta-clay:       #b8622d;
+    --ta-clay-soft:  #f5e0d1;
+
+    --ta-sage:       #7a9560;
+    --ta-sage-soft:  #e1e8d2;
+
+    --ta-amber:      #c08a1e;
+    --ta-amber-soft: #f6e8c5;
+
+    --ta-red:        #9c2b26;
+    --ta-red-soft:   #f3dcd8;
+
+    /* Radii */
+    --ta-r-xs: 2px;
+    --ta-r-sm: 4px;
+    --ta-r-md: 8px;
+    --ta-r-lg: 14px;
+
+    /* Shadows — soft, layered like stacked maps */
+    --ta-shadow-xs: 0 1px 2px rgba(31, 42, 23, .06);
+    --ta-shadow-sm: 0 4px 12px -4px rgba(31, 42, 23, .16);
+    --ta-shadow-md: 0 14px 30px -14px rgba(31, 42, 23, .26);
+}
+
+/* ==========================================================================
+   PAGE SHELL
+   ========================================================================== */
+.vendor-page {
+    position: relative;
+    padding: clamp(20px, 2.8vw, 42px) clamp(16px, 2.6vw, 34px) clamp(36px, 4vw, 60px);
+    font-family: "Karla", system-ui, -apple-system, sans-serif;
+    color: var(--ta-ink);
+    background: var(--ta-bg);
+    /* Topographic contour hint via layered radial gradients */
+    background-image:
+        radial-gradient(ellipse 800px 400px at 10% 20%, rgba(74, 107, 31, .06), transparent 70%),
+        radial-gradient(ellipse 600px 500px at 90% 80%, rgba(184, 98, 45, .05), transparent 65%),
+        radial-gradient(ellipse 900px 300px at 50% 60%, rgba(122, 149, 96, .05), transparent 70%),
+        linear-gradient(rgba(31, 42, 23, .03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(31, 42, 23, .03) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    border-radius: var(--ta-r-sm);
+    min-height: 60vh;
+}
+
+/* Organic decorative contour ring */
+.vendor-page::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 1px solid rgba(74, 107, 31, .14);
+    box-shadow:
+        inset 0 0 0 20px rgba(74, 107, 31, .04),
+        inset 0 0 0 40px rgba(74, 107, 31, .03),
+        inset 0 0 0 60px rgba(74, 107, 31, .02);
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   BACK LINK
+   ========================================================================== */
+.vendor-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 22px;
+    font-family: "Space Mono", monospace;
+    font-size: .72rem;
+    font-weight: 400;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ta-moss);
+    text-decoration: none;
+    padding: 4px 0;
+    border-bottom: 1px solid transparent;
+    transition: all .18s ease;
+}
+
+.vendor-back-link::before {
+    content: "⌖";
+    font-size: .9rem;
+    color: var(--ta-clay);
+}
+
+.vendor-back-link:hover {
+    color: var(--ta-line-bold);
+    border-bottom-color: var(--ta-moss);
+    transform: translateX(-3px);
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+.vendor-page-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 22px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--ta-line);
+    position: relative;
+}
+
+/* Clay dot marking the start of the section */
+.vendor-page-heading::before {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ta-clay);
+    box-shadow: 0 0 0 3px var(--ta-clay-soft);
+}
+
+.vendor-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    font-family: "Space Mono", monospace;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--ta-moss);
+}
+
+.vendor-eyebrow::before,
+.vendor-eyebrow::after {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--ta-moss);
+    opacity: .55;
+}
+
+.vendor-page-heading h1 {
+    margin: 0 0 8px;
+    font-family: "Newsreader", Georgia, serif;
+    font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+    font-weight: 600;
+    letter-spacing: -.022em;
+    line-height: 1.05;
+    color: var(--ta-ink);
+}
+
+.vendor-page-subtitle {
+    margin: 0;
+    font-family: "Newsreader", Georgia, serif;
+    font-size: .94rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ta-ink-2);
+    letter-spacing: -.002em;
+}
+
+/* ==========================================================================
+   TOTAL BOX — like a field sample jar label
+   ========================================================================== */
+.vendor-total {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 12px 20px;
+    background: var(--ta-card);
+    border: 1px solid var(--ta-line);
+    border-radius: var(--ta-r-md);
+    box-shadow:
+        var(--ta-shadow-sm),
+        inset 0 0 0 4px var(--ta-card),
+        inset 0 0 0 5px var(--ta-sage-soft);
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* Corner tick marks */
+.vendor-total::before,
+.vendor-total::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid var(--ta-moss);
+}
+.vendor-total::before {
+    top: 6px;
+    left: 6px;
+    border-right: none;
+    border-bottom: none;
+}
+.vendor-total::after {
+    bottom: 6px;
+    right: 6px;
+    border-left: none;
+    border-top: none;
+}
+
+.vendor-total strong {
+    font-family: "Newsreader", Georgia, serif;
+    font-size: clamp(1.6rem, 2.8vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -.028em;
+    line-height: 1;
+    color: var(--ta-ink);
+    font-variant-numeric: tabular-nums;
+}
+
+.vendor-total span {
+    font-family: "Space Mono", monospace;
+    font-size: .66rem;
+    font-weight: 400;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ta-ink-3);
+}
+
+/* ==========================================================================
+   TABLE (styles for _vendor_application_table.html)
+   ========================================================================== */
+.vendor-table-wrapper {
+    background: var(--ta-card);
+    border: 1px solid var(--ta-line);
+    border-radius: var(--ta-r-md);
+    box-shadow: var(--ta-shadow-sm);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Stitched top edge — like a woven textile */
+.vendor-table-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-image: repeating-linear-gradient(
+        90deg,
+        var(--ta-moss) 0 6px,
+        transparent 6px 12px);
+    opacity: .5;
+}
+
+.vendor-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Karla", sans-serif;
+    font-size: .88rem;
+}
+
+.vendor-table thead {
+    background: var(--ta-panel);
+}
+
+.vendor-table thead th {
+    padding: 14px 18px;
+    text-align: left;
+    font-family: "Space Mono", monospace;
+    font-size: .66rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ta-ink-2);
+    border-bottom: 1px solid var(--ta-line);
+    white-space: nowrap;
+    position: relative;
+}
+
+/* Clay bullet after each header */
+.vendor-table thead th::before {
+    content: "◆";
+    font-size: .5rem;
+    color: var(--ta-clay);
+    margin-right: 8px;
+    opacity: .7;
+    vertical-align: middle;
+}
+
+.vendor-table tbody td {
+    padding: 15px 18px;
+    border-bottom: 1px dashed var(--ta-line);
+    color: var(--ta-ink);
+    vertical-align: middle;
+    font-size: .88rem;
+    line-height: 1.5;
+}
+
+.vendor-table tbody tr {
+    transition: background .16s ease;
+}
+
+.vendor-table tbody tr:nth-child(even) {
+    background: rgba(245, 247, 237, .6);
+}
+
+.vendor-table tbody tr:hover {
+    background: var(--ta-sage-soft);
+}
+
+.vendor-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* First column — emphasized */
+.vendor-table tbody td:first-child {
+    font-family: "Newsreader", Georgia, serif;
+    font-size: .98rem;
+    font-weight: 600;
+    letter-spacing: -.005em;
+    color: var(--ta-ink);
+}
+
+/* Links in table */
+.vendor-table tbody td a {
+    color: var(--ta-moss);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ta-moss);
+    transition: color .16s ease, border-color .16s ease;
+}
+
+.vendor-table tbody td a:hover {
+    color: var(--ta-clay);
+    border-bottom-style: solid;
+    border-bottom-color: var(--ta-clay);
+}
+
+/* Badges */
+.vendor-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    font-family: "Space Mono", monospace;
+    font-size: .64rem;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+}
+
+.vendor-badge-pending {
+    color: var(--ta-amber);
+    background: var(--ta-amber-soft);
+    border-color: rgba(192, 138, 30, .4);
+}
+
+.vendor-badge-approved {
+    color: var(--ta-moss);
+    background: var(--ta-moss-soft);
+    border-color: rgba(74, 107, 31, .4);
+}
+
+.vendor-badge-rejected {
+    color: var(--ta-red);
+    background: var(--ta-red-soft);
+    border-color: rgba(156, 43, 38, .4);
+}
+
+/* Action buttons in table */
+.vendor-table .btn-sm,
+.vendor-table .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    font-family: "Space Mono", monospace;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ta-card);
+    background: var(--ta-moss);
+    border: 1px solid var(--ta-line-bold);
+    border-radius: var(--ta-r-xs);
+    box-shadow: 2px 2px 0 var(--ta-line-bold);
+    cursor: pointer;
+    transition: transform .14s ease, box-shadow .16s ease, background .16s ease;
+}
+
+.vendor-table .btn-sm:hover,
+.vendor-table .btn:hover {
+    background: var(--ta-clay);
+    box-shadow: 3px 3px 0 var(--ta-line-bold);
+    transform: translate(-1px, -1px);
+}
+
+/* ==========================================================================
+   EMPTY STATE
+   ========================================================================== */
+.vendor-empty {
+    padding: clamp(30px, 5vw, 60px) 24px;
+    text-align: center;
+    background: var(--ta-panel);
+    border: 1px dashed var(--ta-line-2);
+    border-radius: var(--ta-r-md);
+}
+
+.vendor-empty::before {
+    content: "⌖";
+    display: block;
+    margin-bottom: 10px;
+    font-family: "Newsreader", serif;
+    font-size: 2rem;
+    color: var(--ta-sage);
+    line-height: 1;
+}
+
+.vendor-empty p {
+    margin: 0;
+    font-family: "Newsreader", serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ta-ink-2);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .vendor-page::before {
+        width: 140px;
+        height: 140px;
+        top: 12px;
+        right: 12px;
+    }
+}
+
+/* Small tablet */
+@media (max-width: 640px) {
+    .vendor-page {
+        padding: 16px 14px 28px;
+    }
+
+    .vendor-page-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding-bottom: 16px;
+    }
+
+    .vendor-page-heading h1 { font-size: 1.45rem; }
+
+    .vendor-total {
+        align-self: stretch;
+        justify-content: space-between;
+        padding: 10px 16px;
+    }
+
+    /* Table → scroll horizontally */
+    .vendor-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .vendor-table {
+        min-width: 640px;
+    }
+
+    .vendor-table thead th,
+    .vendor-table tbody td {
+        padding: 12px 14px;
+        font-size: .82rem;
+    }
+
+    .vendor-table thead th::before { margin-right: 5px; }
+}
+
+/* Mobile */
+@media (max-width: 420px) {
+    .vendor-page { padding: 14px 10px 22px; }
+
+    .vendor-back-link {
+        font-size: .66rem;
+        letter-spacing: .1em;
+    }
+
+    .vendor-eyebrow {
+        font-size: .62rem;
+        letter-spacing: .18em;
+    }
+
+    .vendor-eyebrow::before,
+    .vendor-eyebrow::after { width: 18px; }
+
+    .vendor-page-heading h1 { font-size: 1.25rem; }
+
+    .vendor-total strong { font-size: 1.35rem; }
+    .vendor-total span { font-size: .6rem; letter-spacing: .12em; }
+
+    .vendor-table {
+        min-width: 560px;
+        font-size: .8rem;
+    }
+}
+
+/* ==========================================================================
+   A11Y
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .vendor-page *,
+    .vendor-page *::before,
+    .vendor-page *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+    }
+}
+
+.vendor-page a:focus-visible,
+.vendor-page button:focus-visible {
+    outline: 2px solid var(--ta-clay);
+    outline-offset: 3px;
+}

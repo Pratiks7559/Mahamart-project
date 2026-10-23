@@ -1,0 +1,87 @@
+{% load static %}
+{% include 'includes/store_shell_start.html' with page_title='Register - MahaMart' page_css='css/pages/account_register.css' %}
+
+<div class="auth-container">
+    <div class="auth-card auth-card-large">
+        <div class="auth-header">
+            <h2>Create Account</h2>
+            <p>Join us and start shopping</p>
+        </div>
+        
+        {% if messages %}
+            <div class="messages-container">
+                {% for message in messages %}
+                    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% if form.errors %}
+            <div class="messages-container">
+                <div class="message error">
+                    <strong>Please fix the following errors:</strong>
+                    <ul class="registration-error-list">
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ field|title }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        
+        <form method="POST" action="{% url 'accounts:register' %}" class="auth-form" enctype="multipart/form-data">
+            {% csrf_token %}  <!-- THIS IS CRUCIAL -->
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="username">Username *</label>
+                    <input type="text" id="username" name="username" required class="form-input" value="{{ form.username.value|default:'' }}">
+                </div>
+                <div class="form-group">
+                    <label for="full_name">Full Name *</label>
+                    <input type="text" id="full_name" name="full_name" required class="form-input" value="{{ form.full_name.value|default:'' }}">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required class="form-input" value="{{ form.email.value|default:'' }}">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Mobile Number *</label>
+                    <input type="tel" id="phone" name="phone" required class="form-input" value="{{ form.phone.value|default:'' }}">
+                    <small>Enter 10-digit mobile number</small>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" rows="3" class="form-input" placeholder="Enter your full address">{{ form.address.value|default:'' }}</textarea>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="password1">Password *</label>
+                    <input type="password" id="password1" name="password1" required class="form-input">
+                    <small>Minimum 8 characters</small>
+                </div>
+                <div class="form-group">
+                    <label for="password2">Confirm Password *</label>
+                    <input type="password" id="password2" name="password2" required class="form-input">
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+        </form>
+        
+        <div class="auth-footer">
+            <p>Already have an account? <a href="{% url 'accounts:login' %}">Login here</a></p>
+        </div>
+    </div>
+</div>
+{% include 'includes/store_shell_end.html' %}

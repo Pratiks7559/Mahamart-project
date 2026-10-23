@@ -1,0 +1,28 @@
+{% load static %}
+{% include 'includes/store_shell_start.html' with page_title='Add Product - Vendor Dashboard' page_css='css/pages/vendor_product_form.css' %}
+
+<div class="auth-container vendor-product-page">
+    <section class="auth-card auth-card-large vendor-product-entry-card">
+        <header class="auth-header">
+            <span class="entry-kicker">VENDOR CATALOG</span>
+            <h2>Submit a product</h2>
+            <p>Products appear in the store after admin review.</p>
+        </header>
+        <p class="vendor-note">Enter your selling price. The admin will add a margin before the customer-facing price is published.</p>
+        <form method="post" enctype="multipart/form-data" class="auth-form vendor-form vendor-product-grid">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group{% if field.name == 'description' %} form-group-wide{% endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.name == 'discount_value' %} (₹ or %){% endif %}</label>
+                    {{ field }}
+                    {% if field.name == 'price' %}<small>Admin margin will be added to this price after approval. Prices are in INR (₹).</small>{% endif %}
+                    {% if field.name == 'discount_value' %}<small>Flat is deducted in rupees; Percentage is deducted from regular price. Leave empty for no discount.</small>{% endif %}
+                    {% for error in field.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-full">Submit for review</button>
+        </form>
+        <div class="auth-footer"><a href="{% url 'accounts:vendor_portal' %}">Back to dashboard</a></div>
+    </section>
+</div>
+{% include 'includes/store_shell_end.html' %}

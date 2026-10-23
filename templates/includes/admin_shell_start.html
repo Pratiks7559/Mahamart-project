@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title|default:"Admin Dashboard" }} - MahaMart</title>
+    <link rel="stylesheet" href="{% static 'css/admin_style.css' %}">
+    {% if page_css %}<link rel="stylesheet" href="{% static page_css %}">{% endif %}
+</head>
+<body>
+    <nav class="admin-navbar">
+        <div class="admin-navbar-container">
+            <div class="admin-navbar-brand">
+                <a href="{% url 'admin_dashboard:dashboard' %}" aria-label="MahaMart Admin Dashboard">
+                    <img class="admin-brand-logo" src="{% static 'images/mahamart-lotus-logo.svg' %}" alt="MahaMart">
+                </a>
+            </div>
+            <div class="admin-navbar-menu">
+                <ul>
+                    <li><a href="{% url 'admin_dashboard:dashboard' %}">📊 Dashboard</a></li>
+                    <li><a href="{% url 'admin_dashboard:manage_users' %}">👤 Users</a></li>
+                    <li><a href="{% url 'admin_dashboard:manage_vendors' %}">Vendors</a></li>
+                    <li><a href="{% url 'admin_dashboard:manage_vendor_products' %}">Vendor products</a></li>
+                    <li><a href="{% url 'products:product_list_admin' %}" style="color: #dc3545; font-weight: 600;">📦 Products</a></li>
+                    <li><a href="{% url 'products:product_add' %}" style="color: #28a745;">➕ Add Product</a></li>
+                    <li><a href="{% url 'admin:index' %}">⚙️ Django Admin</a></li>
+                </ul>
+            </div>
+            <div class="admin-navbar-actions">
+                <a href="{% url 'home' %}" class="admin-btn admin-btn-outline admin-nav-storefront">🛍️ View Store</a>
+                <form method="post" action="{% url 'admin_dashboard:admin_logout' %}" class="admin-logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="admin-btn admin-btn-danger admin-nav-logout">🚪 Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    {% if messages %}
+        <div class="admin-messages"><div class="admin-messages-container">
+            {% for message in messages %}<div class="admin-message {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</div>{% endfor %}
+        </div></div>
+    {% endif %}
+    <main class="admin-main"><div class="admin-container">

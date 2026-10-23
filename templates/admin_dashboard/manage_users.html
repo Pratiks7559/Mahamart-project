@@ -1,0 +1,62 @@
+{% load static %}
+{% include 'includes/admin_shell_start.html' with page_title='Manage Users' page_css='css/pages/manage_users.css' %}
+
+<div class="admin-card">
+    <div class="admin-card-header">
+        <h3>👤 All Users</h3>
+        <span class="badge badge-primary">{{ users.count }} total</span>
+    </div>
+    <div class="admin-card-body">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Joined</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td><strong>{{ user.username }}</strong></td>
+                    <td>{{ user.full_name|default:"-" }}</td>
+                    <td>{{ user.email|default:"-" }}</td>
+                    <td>{{ user.phone|default:"-" }}</td>
+                    <td>{{ user.date_joined|date:"Y-m-d" }}</td>
+                    <td>
+                        {% if user.is_active %}
+                            <span class="badge badge-success">Active</span>
+                        {% else %}
+                            <span class="badge badge-danger">Inactive</span>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                            <span class="badge badge-primary">Admin</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not user.is_superuser %}
+                            <form method="POST" action="{% url 'admin_dashboard:toggle_user_status' user.id %}" class="user-status-form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-sm user-status-button{% if user.is_active %} is-active{% else %} is-inactive{% endif %}">
+                                    {% if user.is_active %}Deactivate{% else %}Activate{% endif %}
+                                </button>
+                            </form>
+                        {% else %}
+                            <span class="badge badge-primary">Admin</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="no-data">No users found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% include 'includes/admin_shell_end.html' %}

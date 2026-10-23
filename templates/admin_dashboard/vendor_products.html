@@ -1,0 +1,75 @@
+{% include 'includes/admin_shell_start.html' with page_title='Vendor Products' page_css='css/pages/vendor_products.css' %}
+
+<section class="vendor-page vendor-product-page">
+    <header class="vendor-page-heading">
+        <div>
+            <p class="vendor-eyebrow">CATALOG MODERATION</p>
+            <h1>Vendor products</h1>
+            <p class="vendor-page-subtitle">Review submissions, set your margin, and publish approved products.</p>
+        </div>
+        <div class="vendor-total"><strong>{{ pending_products.count }}</strong><span>awaiting review</span></div>
+    </header>
+
+    <section class="vendor-product-queue">
+        {% for product in pending_products %}
+            <article class="vendor-product-review">
+                {% if product.main_image %}
+                    <img class="vendor-product-image" src="{{ product.main_image.url }}" alt="{{ product.name }}">
+                {% else %}
+                    <div class="vendor-product-image vendor-product-image-empty">No image</div>
+                {% endif %}
+                <div class="vendor-product-content">
+                    <div class="vendor-product-heading">
+                        <div><span class="vendor-eyebrow">{{ product.category.name }}</span><h2>{{ product.name }}</h2></div>
+                        <span class="vendor-status vendor-status-pending">Pending review</span>
+                    </div>
+                    <div class="vendor-product-meta">
+                        <span><small>Vendor</small><strong>{{ product.vendor.full_name|default:product.vendor.username }}</strong></span>
+                        <span><small>Vendor price</small><strong>₹{{ product.price }}</strong></span>
+                        <span><small>Available stock</small><strong>{{ product.stock }}</strong></span>
+                        <span><small>SKU</small><strong>{{ product.sku|default:'Not provided' }}</strong></span>
+                    </div>
+                    <p class="vendor-product-description">{{ product.description|default:'No description provided.'|linebreaksbr }}</p>
+                    <form method="post" action="{% url 'admin_dashboard:review_vendor_product' product.id %}" class="vendor-product-review-form">
+                        {% csrf_token %}
+                        <div class="vendor-margin-control">
+                            <label for="margin-{{ product.id }}">Add margin</label>
+                            <div class="vendor-margin-input"><span>₹</span><input id="margin-{{ product.id }}" type="number" name="margin" min="0" step="0.01" value="0.00" required></div>
+                            <small>Customer price: vendor price + margin</small>
+                        </div>
+                        <div class="vendor-product-actions">
+                            <button type="submit" name="action" value="approve" class="vendor-approve">Approve and publish</button>
+                            <button type="submit" name="action" value="reject" class="vendor-reject">Reject</button>
+                        </div>
+                    </form>
+                </div>
+            </article>
+        {% empty %}
+            <div class="vendor-empty-state"><span class="vendor-empty-mark">✓</span><h2>All caught up</h2><p>No vendor products are waiting for review.</p></div>
+        {% endfor %}
+    </section>
+
+    <section class="vendor-reviewed-section">
+        <div class="vendor-section-heading"><div><p class="vendor-eyebrow">REVIEW HISTORY</p><h2>Previously reviewed</h2></div></div>
+        <div class="vendor-reviewed-table-wrap">
+            <table class="admin-table vendor-reviewed-table">
+                <thead><tr><th>Product</th><th>Vendor</th><th>Vendor price</th><th>Margin</th><th>Customer price</th><th>Status</th></tr></thead>
+                <tbody>
+                    {% for product in reviewed_products %}
+                        <tr>
+                            <td><strong>{{ product.name }}</strong><small>{{ product.category.name }}</small></td>
+                            <td>{{ product.vendor.full_name|default:product.vendor.username }}</td>
+                            <td>₹{{ product.price }}</td>
+                            <td>₹{{ product.admin_margin }}</td>
+                            <td><strong>₹{{ product.final_price }}</strong></td>
+                            <td><span class="vendor-status vendor-status-{{ product.review_status }}">{{ product.get_review_status_display }}</span></td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="6" class="no-data">Reviewed products will appear here.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</section>
+{% include 'includes/admin_shell_end.html' %}

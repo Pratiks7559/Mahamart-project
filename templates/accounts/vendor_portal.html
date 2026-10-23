@@ -1,0 +1,218 @@
+{% include 'includes/store_shell_start.html' with page_title='Vendor Dashboard - MahaMart' page_css='css/pages/vendor_portal.css' %}
+
+<div class="vendor-dashboard">
+    <section class="vendor-welcome">
+        <div>
+            <span class="vendor-eyebrow">YOUR BUSINESS AT A GLANCE</span>
+            <h1>Welcome back, {{ vendor.full_name|default:vendor.username }}.</h1>
+            <p>Keep an eye on your listings, product reviews and stock from one place.</p>
+        </div>
+        <div class="vendor-welcome-actions">
+            <a class="vendor-button vendor-button-primary" href="{% url 'accounts:vendor_product_add' %}">＋ Add a product</a>
+            <a class="vendor-button vendor-button-secondary" href="{% url 'products:product_list' %}">Browse the store</a>
+        </div>
+    </section>
+
+    <section class="vendor-stats" aria-label="Product overview">
+        <article class="vendor-stat">
+            <span class="vendor-stat-icon">▦</span>
+            <span class="vendor-stat-label">Total listings</span>
+            <strong>{{ product_summary.total }}</strong>
+            <span class="vendor-stat-hint">Products submitted</span>
+        </article>
+        <article class="vendor-stat vendor-stat-live">
+            <span class="vendor-stat-icon">✓</span>
+            <span class="vendor-stat-label">Live in store</span>
+            <strong>{{ product_summary.live }}</strong>
+            <span class="vendor-stat-hint">{{ product_summary.live_stock_units|default:0 }} units available</span>
+        </article>
+        <article class="vendor-stat vendor-stat-pending">
+            <span class="vendor-stat-icon">◷</span>
+            <span class="vendor-stat-label">In review</span>
+            <strong>{{ product_summary.pending }}</strong>
+            <span class="vendor-stat-hint">Awaiting admin approval</span>
+        </article>
+        <article class="vendor-stat {% if product_summary.low_stock or product_summary.out_of_stock %}vendor-stat-alert{% endif %}">
+            <span class="vendor-stat-icon">!</span>
+            <span class="vendor-stat-label">Stock alerts</span>
+            <strong>{{ product_summary.low_stock|add:product_summary.out_of_stock }}</strong>
+            <span class="vendor-stat-hint">Low or out of stock</span>
+        </article>
+    </section>
+
+    <div class="vendor-dashboard-grid">
+        <section class="vendor-panel vendor-inventory">
+            <div class="vendor-panel-heading">
+                <div>
+                    <span class="vendor-eyebrow">INVENTORY</span>
+                    <h2>Stock to check</h2>
+                </div>
+                <span class="vendor-count">{{ product_summary.low_stock|add:product_summary.out_of_stock }} items</span>
+            </div>
+            {% if low_stock_products %}
+                <div class="vendor-stock-list">
+                    {% for product in low_stock_products %}
+                        <article class="vendor-stock-item">
+                            <div class="vendor-product-thumb">
+                                {% if product.main_image %}
+                                    <img src="{{ product.main_image.url }}" alt="{{ product.name }}">
+                                {% else %}
+                                    <span aria-hidden="true">▧</span>
+                                {% endif %}
+                            </div>
+                            <div class="vendor-stock-info">
+                                <strong>{{ product.name }}</strong>
+                                <span>{{ product.category.name }}</span>
+                            </div>
+                            {% if product.stock == 0 %}
+                                <span class="vendor-stock-badge is-empty">Out of stock</span>
+                            {% else %}
+                                <span class="vendor-stock-badge is-low">{{ product.stock }} left</span>
+                            {% endif %}
+                        </article>
+                    {% endfor %}
+                </div>
+                <p class="vendor-panel-note">These approved products are low or out of stock. Restock them to keep them available to shoppers.</p>
+            {% else %}
+                <div class="vendor-empty-state">
+                    {% if product_summary.live %}
+                        <span class="vendor-empty-icon">✓</span>
+                        <strong>Your live stock looks good</strong>
+                        <p>We'll flag approved products here when stock reaches {{ low_stock_limit }} or fewer.</p>
+                    {% else %}
+                        <span class="vendor-empty-icon">＋</span>
+                        <strong>No live products yet</strong>
+                        <p>Once a product is approved and in stock, its inventory will be tracked here.</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </section>
+
+        <section class="vendor-panel vendor-account">
+            <div class="vendor-panel-heading">
+                <div>
+                    <span class="vendor-eyebrow">ACCOUNT</span>
+                    <h2>Your details</h2>
+                </div>
+            </div>
+            <dl class="vendor-account-details">
+                <div><dt>Login ID</dt><dd>{{ vendor.username }}</dd></div>
+                <div><dt>Email</dt><dd>{{ vendor.email|default:"Not added" }}</dd></div>
+                <div><dt>Mobile</dt><dd>{{ vendor.phone|default:"Not added" }}</dd></div>
+            </dl>
+            <a class="vendor-text-link" href="{% url 'accounts:profile' %}">Manage your account <span aria-hidden="true">→</span></a>
+            <div class="vendor-help-note">
+                <strong>Need a hand?</strong>
+                <p>For product approval or account help, contact the store administrator.</p>
+            </div>
+        </section>
+    </div>
+
+    {% if product_summary.rejected %}
+        <aside class="vendor-notice vendor-notice-attention">
+            <span class="vendor-notice-icon" aria-hidden="true">!</span>
+            <div>
+                <strong>{{ product_summary.rejected }} product{{ product_summary.rejected|pluralize }} need attention</strong>
+                <p>Check the rejected status below. Contact the administrator if you need help with a product review.</p>
+            </div>
+        </aside>
+    {% endif %}
+
+    {% if product_summary.pending %}
+        <aside class="vendor-notice">
+            <span class="vendor-notice-icon" aria-hidden="true">◷</span>
+            <div>
+                <strong>Your submissions are being reviewed</strong>
+                <p>New products appear in the store after approval. You can check each product's status below.</p>
+            </div>
+        </aside>
+    {% endif %}
+
+    <section class="vendor-panel vendor-products">
+        <div class="vendor-panel-heading vendor-products-heading">
+            <div>
+                <span class="vendor-eyebrow">YOUR CATALOG</span>
+                <h2>Products</h2>
+                <p>Review listing status, pricing and available stock.</p>
+            </div>
+            <a class="vendor-button vendor-button-primary" href="{% url 'accounts:vendor_product_add' %}">＋ Add a product</a>
+        </div>
+
+        {% if products %}
+            <div class="vendor-table-wrap">
+                <table class="vendor-product-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Your price</th>
+                            <th scope="col">Store price</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>
+                                    <div class="vendor-table-product">
+                                        <div class="vendor-product-thumb">
+                                            {% if product.main_image %}
+                                                <img src="{{ product.main_image.url }}" alt="{{ product.name }}">
+                                            {% else %}
+                                                <span aria-hidden="true">▧</span>
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            <strong>{{ product.name }}</strong>
+                                            <span>{{ product.category.name }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>₹{{ product.price|default:"—" }}</td>
+                                <td>
+                                    {% if product.review_status == 'approved' and product.is_active %}
+                                        ₹{{ product.final_price }}
+                                    {% else %}
+                                        <span class="vendor-muted">Shown after approval</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if product.review_status == 'approved' and product.is_active %}
+                                        {% if product.stock == 0 %}
+                                            <span class="vendor-stock-badge is-empty">Out of stock</span>
+                                        {% elif product.stock <= low_stock_limit %}
+                                            <span class="vendor-stock-badge is-low">{{ product.stock }} left</span>
+                                        {% else %}
+                                            {{ product.stock }} units
+                                        {% endif %}
+                                    {% else %}
+                                        {{ product.stock }} units
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <span class="vendor-status vendor-status-{{ product.review_status }}">
+                                        {{ product.get_review_status_display }}
+                                    </span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="vendor-empty-state vendor-empty-products">
+                <span class="vendor-empty-icon">＋</span>
+                <strong>Your catalog starts here</strong>
+                <p>Add your first product. After review and approval, it can go live in the store.</p>
+                <a class="vendor-button vendor-button-primary" href="{% url 'accounts:vendor_product_add' %}">Add your first product</a>
+            </div>
+        {% endif %}
+    </section>
+
+    <footer class="vendor-dashboard-footer">
+        <span>Need to step away?</span>
+        <a href="{% url 'accounts:logout' %}">Log out securely</a>
+    </footer>
+</div>
+
+{% include 'includes/store_shell_end.html' %}

@@ -1,0 +1,167 @@
+{% load static %}
+{% include 'includes/admin_shell_start.html' with page_title='Admin Dashboard' page_css='css/pages/dashboard.css' %}
+
+<h1 class="dashboard-page-title">Admin Panel</h1>
+<div class="admin-dashboard">
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <div class="stat-info">
+                <h3>{{ total_products }}</h3>
+                <p>Total Products</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">📂</div>
+            <div class="stat-info">
+                <h3>{{ total_categories }}</h3>
+                <p>Categories</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">👤</div>
+            <div class="stat-info">
+                <h3>{{ total_users }}</h3>
+                <p>Total Users</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🛒</div>
+            <div class="stat-info">
+                <h3>{{ total_orders }}</h3>
+                <p>Total Orders</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions for Superusers -->
+    <div class="quick-actions">
+        <h3>Quick Actions</h3>
+        <div class="quick-actions-grid">
+            <a href="{% url 'products:product_add' %}" class="quick-action-card quick-action-card--add-product">
+                <span class="quick-icon">➕</span>
+                <span class="quick-text">Add New Product</span>
+            </a>
+            <a href="{% url 'products:product_list_admin' %}" class="quick-action-card quick-action-card--manage-products">
+                <span class="quick-icon">📦</span>
+                <span class="quick-text">Manage Products</span>
+            </a>
+            <a href="{% url 'admin_dashboard:manage_users' %}" class="quick-action-card quick-action-card--manage-users">
+                <span class="quick-icon">👤</span>
+                <span class="quick-text">Manage Users</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Recent Products & Low Stock -->
+    <div class="admin-grid">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h3>Recent Products</h3>
+                <a href="{% url 'products:product_list_admin' %}" class="btn-sm">View All</a>
+            </div>
+            <div class="admin-card-body">
+                {% if recent_products %}
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in recent_products %}
+                            <tr>
+                                <td>{{ product.name|truncatechars:30 }}</td>
+                                <td>₹{{ product.price }}</td>
+                                <td>{{ product.stock }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="no-data">No recent products</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h3>⚠️ Low Stock Products</h3>
+                <a href="{% url 'products:product_list_admin' %}" class="btn-sm">View All</a>
+            </div>
+            <div class="admin-card-body">
+                {% if low_stock_products %}
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in low_stock_products %}
+                            <tr>
+                                <td>{{ product.name|truncatechars:25 }}</td>
+                                <td><span class="badge badge-danger">{{ product.stock }}</span></td>
+                                <td>
+                                    {% if product.stock == 0 %}
+                                        <span class="badge badge-danger">Out of Stock</span>
+                                    {% else %}
+                                        <span class="badge badge-warning">Low Stock</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="no-data">No low stock products</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Top Categories -->
+    <div class="admin-card">
+        <div class="admin-card-header">
+            <h3>Top Categories</h3>
+            <a href="#" class="btn-sm">View All</a>
+        </div>
+        <div class="admin-card-body">
+            {% if categories_with_count %}
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Products</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories_with_count %}
+                        <tr>
+                            <td>{{ category.name }}</td>
+                            <td>{{ category.product_count }}</td>
+                            <td>
+                                {% if category.is_active %}
+                                    <span class="badge badge-success">Active</span>
+                                {% else %}
+                                    <span class="badge badge-danger">Inactive</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="no-data">No categories found</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% include 'includes/admin_shell_end.html' %}

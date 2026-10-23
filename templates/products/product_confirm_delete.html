@@ -1,0 +1,41 @@
+{% load static %}
+{% include 'includes/store_shell_start.html' with page_title=page_title page_css='css/pages/product_delete.css' %}
+
+<section class="delete-confirm-section">
+    <div class="delete-container">
+        <div class="delete-card">
+            <div class="delete-icon">🗑️</div>
+            <h1>Delete Product</h1>
+            <p>Are you sure you want to delete <strong>"{{ product.name }}"</strong>?</p>
+            <p class="warning-text">This action cannot be undone. All product data will be permanently removed.</p>
+
+            <div class="product-details">
+                <div class="detail-row">
+                    <span class="detail-label">SKU:</span>
+                    <span class="detail-value">{{ product.sku }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Category:</span>
+                    <span class="detail-value">{{ product.category.name }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Price:</span>
+                    <span class="detail-value">₹{{ product.price }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Stock:</span>
+                    <span class="detail-value">{{ product.stock }}</span>
+                </div>
+            </div>
+
+            <div class="delete-actions">
+                <form method="POST" action="{% url 'products:product_delete' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-lg">Yes, Delete</button>
+                </form>
+                <a href="{% url 'products:product_edit' product.id %}" class="btn btn-outline btn-lg">Cancel</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'includes/store_shell_end.html' %}

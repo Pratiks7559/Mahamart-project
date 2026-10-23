@@ -1,0 +1,618 @@
+/* ==========================================================================
+   VENDOR LOGIN — "CITRUS PRESS" EDITION
+   Place at: static/css/pages/vendor_login.css
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap');
+
+/* ==========================================================================
+   TOKENS
+   ========================================================================== */
+:root {
+    /* Surfaces */
+    --cx-ivory:     #faf4e8;
+    --cx-ivory-2:   #f2ead7;
+    --cx-card:      #fffcf5;
+
+    /* Lines */
+    --cx-line:      #241c2b;
+    --cx-line-soft: #d9cfba;
+
+    /* Ink */
+    --cx-ink:       #241c2b;
+    --cx-ink-2:     #5f5567;
+    --cx-ink-3:     #9a8fa0;
+
+    /* Accents */
+    --cx-lemon:     #ffe045;
+    --cx-lemon-2:   #fff08a;
+    --cx-lemon-deep:#e6c200;
+
+    --cx-plum:      #4d1e4a;
+    --cx-plum-2:    #6b2a68;
+
+    --cx-punch:     #ff4d6d;
+    --cx-punch-2:   #ff7b93;
+
+    --cx-teal:      #1f7a7a;
+
+    /* Radii */
+    --cx-r-xs: 2px;
+    --cx-r-sm: 4px;
+    --cx-r-md: 6px;
+    --cx-r-lg: 10px;
+}
+
+/* ==========================================================================
+   PAGE SHELL
+   ========================================================================== */
+.auth-container {
+    position: relative;
+    min-height: 100vh;
+    padding: clamp(18px, 3vw, 42px) clamp(14px, 2.4vw, 28px) clamp(40px, 5vw, 66px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+    color: var(--cx-ink);
+    background: var(--cx-ivory);
+    background-image:
+        radial-gradient(circle, rgba(36, 28, 43, .06) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Big decorative lemon blob behind card */
+.auth-container::before {
+    content: "";
+    position: absolute;
+    top: 10%;
+    right: 4%;
+    width: min(420px, 44vw);
+    height: min(420px, 44vw);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%,
+        var(--cx-lemon-2) 0%, var(--cx-lemon) 45%, transparent 72%);
+    filter: blur(2px);
+    opacity: .7;
+    pointer-events: none;
+}
+
+.auth-container::after {
+    content: "";
+    position: absolute;
+    bottom: 8%;
+    left: 5%;
+    width: min(340px, 38vw);
+    height: min(340px, 38vw);
+    border-radius: 50%;
+    background: radial-gradient(circle at 65% 40%,
+        var(--cx-punch-2) 0%, var(--cx-punch) 40%, transparent 72%);
+    filter: blur(6px);
+    opacity: .35;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   CARD — Split with plum spine
+   ========================================================================== */
+.auth-card {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: 1.05fr 1.35fr;
+    grid-template-areas:
+        "brand header"
+        "brand form"
+        "brand footer";
+    grid-template-rows: auto auto auto;
+    background: var(--cx-card);
+    border: 1.5px solid var(--cx-line);
+    border-radius: var(--cx-r-md);
+    box-shadow:
+        10px 10px 0 var(--cx-line),
+        20px 20px 0 rgba(255, 224, 69, .55);
+    overflow: hidden;
+    animation: cxIn .55s cubic-bezier(.2, .85, .3, 1) both;
+}
+
+@keyframes cxIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* ==========================================================================
+   BRAND SLOT — plum panel on left
+   ========================================================================== */
+.auth-brand-slot {
+    position: relative;
+    grid-area: brand;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: clamp(28px, 3.4vw, 44px) clamp(24px, 3vw, 38px);
+    background:
+        radial-gradient(circle at 90% 10%,
+            rgba(255, 224, 69, .22), transparent 55%),
+        linear-gradient(160deg, var(--cx-plum) 0%, var(--cx-plum-2) 60%, #361536 100%);
+    color: #ffffff;
+    border-right: 1.5px solid var(--cx-line);
+    overflow: hidden;
+}
+
+/* Decorative diagonal stripes */
+.auth-brand-slot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        135deg,
+        rgba(255, 255, 255, .04) 0 1px,
+        transparent 1px 14px);
+    pointer-events: none;
+}
+
+/* Lemon corner accent */
+.auth-brand-slot::after {
+    content: "";
+    position: absolute;
+    bottom: -40px;
+    right: -40px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        var(--cx-lemon) 0%, var(--cx-lemon) 40%, transparent 70%);
+    opacity: .35;
+    filter: blur(6px);
+    pointer-events: none;
+}
+
+.brand-mark {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--cx-plum);
+    background: var(--cx-lemon);
+    border: 1.5px solid var(--cx-line);
+    border-radius: var(--cx-r-sm);
+    box-shadow: 4px 4px 0 var(--cx-lemon-deep);
+    position: relative;
+    z-index: 1;
+    transform: rotate(-4deg);
+    transition: transform .35s cubic-bezier(.2, .85, .3, 1);
+}
+
+.auth-brand-slot:hover .brand-mark {
+    transform: rotate(4deg) scale(1.06);
+}
+
+.brand-tag {
+    font-family: "DM Mono", monospace;
+    font-size: .68rem;
+    font-weight: 500;
+    letter-spacing: .22em;
+    color: var(--cx-lemon);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+}
+
+.brand-title {
+    margin: 6px 0 4px;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: clamp(1.5rem, 2.6vw, 2.05rem);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+    color: #ffffff;
+    position: relative;
+    z-index: 1;
+}
+
+.brand-copy {
+    margin: 0;
+    max-width: 300px;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: .88rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, .78);
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   HEADER (right column)
+   ========================================================================== */
+.auth-header {
+    grid-area: header;
+    min-width: 0;
+    padding: clamp(26px, 3.2vw, 42px) clamp(24px, 3vw, 40px) 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.auth-header h2 {
+    margin: 0;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+    font-weight: 700;
+    letter-spacing: -.028em;
+    line-height: 1.1;
+    color: var(--cx-ink);
+}
+
+.auth-header h2::after {
+    content: "";
+    display: block;
+    width: 42px;
+    height: 4px;
+    margin-top: 12px;
+    background: var(--cx-lemon);
+    border: 1.5px solid var(--cx-line);
+    box-shadow: 3px 3px 0 var(--cx-line);
+    border-radius: 1px;
+}
+
+.auth-header p {
+    margin: 4px 0 0;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: .95rem;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -.005em;
+    color: var(--cx-ink-2);
+}
+
+/* ==========================================================================
+   FORM
+   ========================================================================== */
+.auth-form {
+    grid-area: form;
+    min-width: 0;
+    padding: clamp(20px, 2.6vw, 30px) clamp(24px, 3vw, 40px) clamp(28px, 3.2vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   FORM GROUP
+   ========================================================================== */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.form-group > label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "DM Mono", monospace;
+    font-size: .68rem;
+    font-weight: 500;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--cx-plum);
+    transition: color .16s ease;
+}
+
+.form-group > label::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--cx-lemon);
+    border: 1px solid var(--cx-line);
+    border-radius: 1px;
+    transform: rotate(45deg);
+    transition: transform .25s ease, background .16s ease;
+}
+
+.form-group:focus-within > label {
+    color: var(--cx-plum-2);
+}
+
+.form-group:focus-within > label::before {
+    transform: rotate(135deg);
+    background: var(--cx-punch);
+}
+
+/* ==========================================================================
+   INPUTS
+   ========================================================================== */
+.form-input,
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="tel"] {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 15px;
+    font-family: "Bricolage Grotesque", "Inter", sans-serif;
+    font-size: .92rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--cx-ink);
+    background: #ffffff;
+    border: 1.5px solid var(--cx-line);
+    border-radius: var(--cx-r-sm);
+    outline: none;
+    box-shadow: 3px 3px 0 rgba(36, 28, 43, .12);
+    transition: box-shadow .16s ease, transform .16s ease,
+                background .16s ease;
+}
+
+.auth-form input::placeholder {
+    color: var(--cx-ink-3);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-size: .92rem;
+}
+
+.auth-form input:hover {
+    background: var(--cx-ivory);
+}
+
+.auth-form input:focus {
+    background: var(--cx-ivory);
+    box-shadow: 5px 5px 0 var(--cx-lemon);
+    transform: translate(-2px, -2px);
+}
+
+/* Autofill */
+.auth-form input:-webkit-autofill {
+    -webkit-text-fill-color: var(--cx-ink);
+    -webkit-box-shadow: 0 0 0 1000px var(--cx-ivory) inset, 3px 3px 0 rgba(36, 28, 43, .12);
+    box-shadow: 0 0 0 1000px var(--cx-ivory) inset, 3px 3px 0 rgba(36, 28, 43, .12);
+}
+
+/* ==========================================================================
+   SUBMIT BUTTON
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: .88rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: .04em;
+    text-decoration: none;
+    white-space: nowrap;
+    border: 1.5px solid var(--cx-line);
+    border-radius: var(--cx-r-sm);
+    cursor: pointer;
+    transition: transform .16s ease, box-shadow .16s ease,
+                background .16s ease, color .16s ease;
+}
+
+.btn-full {
+    width: 100%;
+    margin-top: 6px;
+    padding: 14px 24px;
+    font-size: .92rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    position: relative;
+    color: var(--cx-ink);
+    background: var(--cx-lemon);
+    box-shadow: 5px 5px 0 var(--cx-line);
+}
+
+.btn-primary::after {
+    content: "→";
+    font-size: 1rem;
+    transition: transform .18s ease;
+}
+
+.btn-primary:hover {
+    background: var(--cx-punch);
+    color: #ffffff;
+    box-shadow: 7px 7px 0 var(--cx-line);
+    transform: translate(-2px, -2px);
+}
+
+.btn-primary:hover::after {
+    transform: translateX(4px);
+}
+
+.btn-primary:active {
+    box-shadow: 3px 3px 0 var(--cx-line);
+    transform: translate(0, 0);
+}
+
+.btn-primary:focus-visible {
+    outline: 3px dashed var(--cx-plum);
+    outline-offset: 3px;
+}
+
+/* ==========================================================================
+   AUTH FOOTER
+   ========================================================================== */
+.auth-footer {
+    grid-area: footer;
+    min-width: 0;
+    margin: 0 clamp(24px, 3vw, 40px) clamp(28px, 3.2vw, 38px);
+    padding-top: 18px;
+    border-top: 1.5px dashed var(--cx-line-soft);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.auth-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: .95rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--cx-plum);
+    text-decoration: none;
+    padding: 2px 4px;
+    border-bottom: 1.5px solid var(--cx-plum);
+    transition: all .16s ease;
+}
+
+.auth-footer a::after {
+    content: "→";
+    font-style: normal;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: .9rem;
+    transition: transform .18s ease;
+}
+
+.auth-footer a:hover {
+    color: var(--cx-punch);
+    border-bottom-color: var(--cx-punch);
+    letter-spacing: .005em;
+}
+
+.auth-footer a:hover::after {
+    transform: translateX(4px);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* Stack the panels only on narrow mobile screens. */
+@media (max-width: 600px) {
+    .auth-card {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "brand"
+            "header"
+            "form"
+            "footer";
+        grid-template-rows: auto auto auto auto;
+        max-width: 480px;
+        box-shadow:
+            8px 8px 0 var(--cx-line),
+            16px 16px 0 rgba(255, 224, 69, .5);
+    }
+
+    .auth-brand-slot {
+        border-right: none;
+        border-bottom: 1.5px solid var(--cx-line);
+        padding: 26px 24px 22px;
+        gap: 10px;
+    }
+
+    .auth-brand-slot::after {
+        bottom: -60px;
+        right: -60px;
+        width: 140px;
+        height: 140px;
+    }
+
+    .brand-mark {
+        width: 36px;
+        height: 36px;
+        font-size: 1.15rem;
+    }
+
+    .brand-title { font-size: 1.5rem; }
+    .brand-copy  { font-size: .82rem; max-width: 100%; }
+
+    .auth-header { padding: 22px 24px 0; }
+    .auth-form   { padding: 18px 24px 26px; gap: 14px; }
+    .auth-footer { margin: 0 24px 24px; }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .auth-card {
+        box-shadow:
+            6px 6px 0 var(--cx-line),
+            12px 12px 0 rgba(255, 224, 69, .5);
+    }
+
+    .auth-brand-slot { padding: 22px 20px 18px; }
+    .brand-title { font-size: 1.35rem; }
+    .brand-copy  { font-size: .78rem; line-height: 1.5; }
+
+    .auth-header { padding: 20px 20px 0; }
+    .auth-header h2 { font-size: 1.3rem; }
+    .auth-header h2::after {
+        width: 34px;
+        height: 3px;
+        margin-top: 10px;
+        box-shadow: 2px 2px 0 var(--cx-line);
+    }
+    .auth-header p { font-size: .88rem; }
+
+    .auth-form { padding: 16px 20px 22px; gap: 12px; }
+
+    .form-input,
+    .auth-form input { padding: 11px 13px; font-size: .88rem; }
+
+    .btn-full {
+        padding: 12px 18px;
+        font-size: .82rem;
+        letter-spacing: .1em;
+    }
+
+    .auth-footer { margin: 0 20px 22px; }
+    .auth-footer a { font-size: .88rem; }
+}
+
+/* Very small */
+@media (max-width: 380px) {
+    .auth-container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .auth-card {
+        box-shadow:
+            4px 4px 0 var(--cx-line),
+            8px 8px 0 rgba(255, 224, 69, .5);
+    }
+
+    .auth-brand-slot { padding: 18px 16px 14px; }
+    .brand-title { font-size: 1.2rem; }
+
+    .auth-header { padding: 18px 16px 0; }
+    .auth-form   { padding: 14px 16px 18px; }
+    .auth-footer { margin: 0 16px 18px; }
+
+    .form-group > label { font-size: .62rem; letter-spacing: .12em; }
+}
+
+/* ==========================================================================
+   A11Y
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .auth-card { animation: none !important; }
+
+    .auth-container *,
+    .auth-container *::before,
+    .auth-container *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+    }
+}

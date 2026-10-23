@@ -1,0 +1,251 @@
+[
+  {
+    "model": "products.category",
+    "pk": 1,
+    "fields": {
+      "name": "Electronics",
+      "slug": "electronics",
+      "description": "Latest gadgets and electronic devices",
+      "image": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 2,
+    "fields": {
+      "name": "Clothing",
+      "slug": "clothing",
+      "description": "Fashionable apparel for men and women",
+      "image": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 3,
+    "fields": {
+      "name": "Books",
+      "slug": "books",
+      "description": "Best selling books and e-books",
+      "image": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "name": "Premium Wireless Headphones Pro",
+      "slug": "premium-wireless-headphones-pro",
+      "sku": "PROD-1001",
+      "description": "Experience crystal-clear audio with our premium wireless headphones. Features active noise cancellation, 40-hour battery life, and ultra-comfortable ear cushions.",
+      "price": "299.99",
+      "discount_type": "flat",
+      "discount_value": "100.00",
+      "stock": 45,
+      "main_image": "",
+      "is_featured": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "category": 1,
+      "name": "4K Smart TV 55 Inch",
+      "slug": "4k-smart-tv-55-inch",
+      "sku": "PROD-1002",
+      "description": "Immerse yourself in stunning 4K HDR quality with this 55-inch Smart TV. Features built-in streaming apps, voice control, and Dolby Atmos sound.",
+      "price": "699.99",
+      "discount_type": "flat",
+      "discount_value": null,
+      "stock": 15,
+      "main_image": "",
+      "is_featured": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "category": 2,
+      "name": "Premium Leather Jacket",
+      "slug": "premium-leather-jacket",
+      "sku": "PROD-1003",
+      "description": "Handcrafted premium leather jacket with a modern fit. Features a soft inner lining, multiple pockets, and durable zippers.",
+      "price": "249.99",
+      "discount_type": "flat",
+      "discount_value": "60.00",
+      "stock": 30,
+      "main_image": "",
+      "is_featured": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+      "category": 2,
+      "name": "Classic Denim Jeans",
+      "slug": "classic-denim-jeans",
+      "sku": "PROD-1004",
+      "description": "Timeless classic denim jeans with a perfect fit. Made from high-quality cotton blend fabric, available in all sizes.",
+      "price": "79.99",
+      "discount_type": "flat",
+      "discount_value": null,
+      "stock": 100,
+      "main_image": "",
+      "is_featured": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+      "category": 3,
+      "name": "The Complete Python Programming Guide",
+      "slug": "complete-python-programming-guide",
+      "sku": "PROD-1005",
+      "description": "Master Python programming with this comprehensive guide. Covers everything from basics to advanced topics including web development, data science, and machine learning.",
+      "price": "49.99",
+      "discount_type": "flat",
+      "discount_value": "20.00",
+      "stock": 75,
+      "main_image": "",
+      "is_featured": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+      "category": 3,
+      "name": "The Art of Minimalism",
+      "slug": "art-of-minimalism",
+      "sku": "PROD-1006",
+      "description": "Discover the transformative power of minimalism in this inspiring book. Learn how to declutter your life and focus on what truly matters.",
+      "price": "34.99",
+      "discount_type": "flat",
+      "discount_value": null,
+      "stock": 50,
+      "main_image": "",
+      "is_featured": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 7,
+    "fields": {
+      "category": 1,
+      "name": "Smart Fitness Band X2",
+      "slug": "smart-fitness-band-x2",
+      "sku": "PROD-1007",
+      "description": "Track your fitness goals with our advanced smart band. Features heart rate monitor, sleep tracking, GPS, and 14-day battery life.",
+      "price": "149.99",
+      "discount_type": "flat",
+      "discount_value": "30.00",
+      "stock": 60,
+      "main_image": "",
+      "is_featured": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 8,
+    "fields": {
+      "category": 2,
+      "name": "Sporty Sneakers",
+      "slug": "sporty-sneakers",
+      "sku": "PROD-1008",
+      "description": "Comfortable and stylish sporty sneakers perfect for everyday wear. Features cushioned insoles, breathable fabric, and durable rubber soles.",
+      "price": "89.99",
+      "discount_type": "flat",
+      "discount_value": "20.00",
+      "stock": 40,
+      "main_image": "",
+      "is_featured": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 9,
+    "fields": {
+      "category": 1,
+      "name": "Ultra-Slim Laptop",
+      "slug": "ultra-slim-laptop",
+      "sku": "PROD-1009",
+      "description": "Powerful ultra-slim laptop with 16GB RAM, 512GB SSD, and 14-inch 4K display. Perfect for professionals and students.",
+      "price": "1199.99",
+      "discount_type": "flat",
+      "discount_value": "200.00",
+      "stock": 10,
+      "main_image": "",
+      "is_featured": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 10,
+    "fields": {
+      "category": 3,
+      "name": "Business Strategy & Leadership",
+      "slug": "business-strategy-leadership",
+      "sku": "PROD-1010",
+      "description": "Learn effective business strategies and leadership skills from industry experts. This book covers team management, decision-making, and business growth.",
+      "price": "39.99",
+      "discount_type": "flat",
+      "discount_value": null,
+      "stock": 65,
+      "main_image": "",
+      "is_featured": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 11,
+    "fields": {
+      "category": 2,
+      "name": "Designer Watch",
+      "slug": "designer-watch",
+      "sku": "PROD-1011",
+      "description": "Elegant designer watch with a premium leather strap and stainless steel case. Features automatic movement and date display.",
+      "price": "199.99",
+      "discount_type": "flat",
+      "discount_value": "50.00",
+      "stock": 25,
+      "main_image": "",
+      "is_featured": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 12,
+    "fields": {
+      "category": 1,
+      "name": "Professional Drone 4K",
+      "slug": "professional-drone-4k",
+      "sku": "PROD-1012",
+      "description": "Professional-grade drone with 4K camera, 30-minute flight time, and obstacle avoidance. Perfect for aerial photography.",
+      "price": "799.99",
+      "discount_type": "flat",
+      "discount_value": "150.00",
+      "stock": 8,
+      "main_image": "",
+      "is_featured": true,
+      "is_active": true
+    }
+  }
+]

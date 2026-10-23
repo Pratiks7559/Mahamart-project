@@ -1,0 +1,70 @@
+{% load static %}
+{% include 'includes/admin_shell_start.html' with page_title='Manage Products' %}
+
+<div class="admin-card">
+    <div class="admin-card-header">
+        <h3>📦 All Products</h3>
+        <div>
+            <span class="badge badge-primary">{{ products.count }} total</span>
+            <a href="{% url 'admin:products_product_add' %}" class="btn-sm" style="background: #28a745; margin-left: 10px;">+ Add New</a>
+        </div>
+    </div>
+    <div class="admin-card-body">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>SKU</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.name|truncatechars:30 }}</td>
+                    <td>{{ product.category.name }}</td>
+                    <td>{{ product.sku }}</td>
+                    <td>
+                        {% if product.discount_value %}
+                            <span style="text-decoration: line-through; color: #999;">₹{{ product.customer_price }}</span>
+                            <span style="color: #dc3545;">₹{{ product.customer_discount_price }}</span>
+                        {% else %}
+                            ₹{{ product.customer_price }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if product.stock <= 0 %}
+                            <span class="badge badge-danger">{{ product.stock }}</span>
+                        {% elif product.stock <= 10 %}
+                            <span class="badge badge-warning">{{ product.stock }}</span>
+                        {% else %}
+                            <span class="badge badge-success">{{ product.stock }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if product.is_active %}
+                            <span class="badge badge-success">Active</span>
+                        {% else %}
+                            <span class="badge badge-danger">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'admin:products_product_change' product.id %}" class="btn-sm" style="background: #667eea; color: white; text-decoration: none; padding: 4px 12px; border-radius: 6px;">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="no-data">No products found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% include 'includes/admin_shell_end.html' %}

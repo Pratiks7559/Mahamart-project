@@ -1,0 +1,65 @@
+{% load static %}
+{% include 'includes/store_shell_start.html' with page_title=page_title page_css='css/pages/product_list.css' %}
+
+<section class="shop-section">
+    <div class="shop-header">
+        <h1>{{ page_title }}</h1>
+        <span class="result-count">{{ total_products }} product{{ total_products|pluralize }} found</span>
+    </div>
+
+    <div class="search-bar-section">
+        <form action="{% url 'products:product_list' %}" method="GET" class="search-form">
+            <input type="text" name="q" value="{{ search_query }}" placeholder="Search products...">
+            <button type="submit">🔍 Search</button>
+        </form>
+    </div>
+
+    <div class="product-grid">
+        {% for product in products %}
+            <div class="product-card">
+                <div class="product-image-container">
+                    <a href="{% url 'products:product_detail' product.slug %}">
+                        {% if product.main_image %}
+                            <img src="{{ product.main_image.url }}" alt="{{ product.name }}" class="product-image">
+                        {% else %}
+                            <div class="product-image-placeholder"><span>No Image</span></div>
+                        {% endif %}
+                    </a>
+                    {% if product.discount_percentage > 0 %}
+                        <span class="discount-badge">-{{ product.discount_percentage|floatformat:0 }}%</span>
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <span class="product-category">{{ product.category.name }}</span>
+                    <h3 class="product-name">
+                        <a href="{% url 'products:product_detail' product.slug %}">{{ product.name }}</a>
+                    </h3>
+                    <div class="product-price">
+                        {% if product.discount_value %}
+                            <span class="original-price">₹{{ product.customer_price }}</span>
+                            <span class="discount-price">₹{{ product.customer_discount_price }}</span>
+                        {% else %}
+                            <span class="regular-price">₹{{ product.customer_price }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="product-stock">
+                        {% if product.is_in_stock %}
+                            <span class="stock-status in-stock">✓ In Stock</span>
+                        {% else %}
+                            <span class="stock-status out-of-stock">✗ Out of Stock</span>
+                        {% endif %}
+                    </div>
+                    <div class="product-actions">
+                        <a href="{% url 'products:product_detail' product.slug %}" class="btn btn-primary btn-sm">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="no-results">
+                <p>No products found{% if search_query %} for "{{ search_query }}"{% endif %}.</p>
+                <a href="{% url 'products:product_list' %}">View all products</a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% include 'includes/store_shell_end.html' %}

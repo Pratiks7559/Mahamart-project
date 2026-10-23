@@ -1,0 +1,771 @@
+/* ==========================================================================
+   VENDOR APPLICATION DETAIL — "CRIMSON LEDGER" EDITION
+   Place at: static/css/pages/vendor_application_detail.css
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+/* ==========================================================================
+   TOKENS
+   ========================================================================== */
+:root {
+    /* Surfaces — aged ledger paper */
+    --cl-paper:      #f7f1e3;
+    --cl-paper-2:    #f0e8d3;
+    --cl-paper-3:    #e7ddc1;
+    --cl-card:       #fdf9ec;
+    --cl-panel:      #fbf5e4;
+
+    /* Lines */
+    --cl-ink-line:   #2b1d1a;
+    --cl-rule:       #c9b995;
+    --cl-rule-soft:  #ddd0ad;
+
+    /* Ink */
+    --cl-ink:        #2b1d1a;
+    --cl-ink-2:      #5a4a42;
+    --cl-ink-3:      #8f7f6e;
+
+    /* Accents */
+    --cl-crimson:    #8b1a1a;
+    --cl-crimson-2:  #b32828;
+    --cl-crimson-soft:#f5dcd6;
+    --cl-burgundy:   #5a0f0f;
+
+    --cl-wax:        #c8302e;
+    --cl-wax-2:      #e04946;
+
+    --cl-gold:       #a67c1e;
+    --cl-gold-soft:  #f2e4bf;
+
+    --cl-mint:       #4a6b3a;
+    --cl-mint-soft:  #e0e9d4;
+
+    --cl-rust:       #a63a1e;
+    --cl-rust-soft:  #f5dfd2;
+
+    /* Radii */
+    --cl-r-xs: 1px;
+    --cl-r-sm: 2px;
+    --cl-r-md: 4px;
+    --cl-r-lg: 6px;
+
+    /* Shadows — soft, paper stacking */
+    --cl-shadow-xs: 0 1px 2px rgba(43, 29, 26, .06);
+    --cl-shadow-sm: 0 3px 10px -4px rgba(43, 29, 26, .18);
+    --cl-shadow-md: 0 12px 28px -12px rgba(43, 29, 26, .28);
+}
+
+/* ==========================================================================
+   PAGE SHELL
+   ========================================================================== */
+.vendor-page {
+    position: relative;
+    padding: clamp(18px, 2.6vw, 40px) clamp(16px, 2.6vw, 34px) clamp(34px, 4vw, 60px);
+    font-family: "Libre Baskerville", Georgia, serif;
+    color: var(--cl-ink);
+    background: var(--cl-paper);
+    /* Faint horizontal ruling like ledger paper */
+    background-image:
+        linear-gradient(rgba(43, 29, 26, .05) 1px, transparent 1px);
+    background-size: 100% 28px;
+    border-radius: var(--cl-r-sm);
+}
+
+/* Aged paper texture overlay */
+.vendor-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(139, 26, 26, .04), transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(166, 124, 30, .05), transparent 45%);
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+/* ==========================================================================
+   BACK LINK
+   ========================================================================== */
+.vendor-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 22px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--cl-crimson);
+    text-decoration: none;
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--cl-crimson);
+    transition: color .16s ease, border-color .16s ease, transform .2s ease;
+}
+
+.vendor-back-link:hover {
+    color: var(--cl-burgundy);
+    border-bottom-color: var(--cl-burgundy);
+    transform: translateX(-3px);
+}
+
+/* ==========================================================================
+   HEADING
+   ========================================================================== */
+.vendor-detail-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+    padding-bottom: 22px;
+    position: relative;
+    border-bottom: 2px double var(--cl-ink-line);
+}
+
+/* Small wax-red accent above the heading */
+.vendor-detail-heading::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 0;
+    width: 42px;
+    height: 3px;
+    background: var(--cl-crimson);
+}
+
+.vendor-eyebrow {
+    margin: 0 0 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .68rem;
+    font-weight: 500;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--cl-crimson);
+    padding-left: 24px;
+    position: relative;
+}
+
+.vendor-eyebrow::before {
+    content: "§";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: "Libre Baskerville", serif;
+    font-size: .9rem;
+    font-weight: 700;
+    color: var(--cl-crimson);
+    line-height: 1;
+}
+
+.vendor-detail-heading h1 {
+    margin: 0 0 8px;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -.018em;
+    line-height: 1.05;
+    color: var(--cl-ink);
+}
+
+.vendor-page-subtitle {
+    margin: 0;
+    font-family: "Libre Baskerville", Georgia, serif;
+    font-size: .86rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--cl-ink-2);
+    letter-spacing: -.002em;
+}
+
+/* ==========================================================================
+   STATUS SEAL — wax stamp look
+   ========================================================================== */
+.vendor-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 22px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: var(--cl-crimson);
+    border: 1.5px solid var(--cl-ink-line);
+    border-radius: 999px;
+    box-shadow:
+        inset 0 0 0 3px rgba(255, 255, 255, .18),
+        3px 3px 0 var(--cl-ink-line);
+    transform: rotate(-2deg);
+    position: relative;
+    white-space: nowrap;
+}
+
+/* Stamp texture */
+.vendor-status::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, .12) 1px, transparent 1px);
+    background-size: 6px 6px;
+    border-radius: inherit;
+    opacity: .7;
+    pointer-events: none;
+}
+
+.vendor-status-pending   { background: var(--cl-gold);   color: #ffffff; }
+.vendor-status-approved  { background: var(--cl-mint);   color: #ffffff; }
+.vendor-status-rejected  { background: var(--cl-crimson); }
+
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+.vendor-detail-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(280px, 1fr);
+    gap: 26px;
+    align-items: start;
+}
+
+.vendor-detail-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+}
+
+.vendor-detail-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: sticky;
+    top: 20px;
+}
+
+/* ==========================================================================
+   PANEL — like a numbered ledger entry
+   ========================================================================== */
+.vendor-detail-panel {
+    position: relative;
+    padding: 22px 24px 20px;
+    background: var(--cl-card);
+    border: 1px solid var(--cl-rule);
+    border-radius: var(--cl-r-sm);
+    box-shadow: var(--cl-shadow-xs);
+    /* Top rule accent like a ledger header */
+    border-top: 2px solid var(--cl-ink-line);
+}
+
+.vendor-panel-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--cl-rule);
+}
+
+/* Numbered index — "01", "02" */
+.vendor-panel-index {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: -.02em;
+    line-height: 1;
+    color: var(--cl-crimson);
+    padding-right: 10px;
+    border-right: 1px solid var(--cl-rule);
+    min-width: 46px;
+}
+
+.vendor-panel-heading h2 {
+    margin: 0;
+    font-family: "Libre Baskerville", Georgia, serif;
+    font-size: 1.02rem;
+    font-weight: 700;
+    letter-spacing: -.005em;
+    color: var(--cl-ink);
+}
+
+/* ==========================================================================
+   INFO GRID — definition list
+   ========================================================================== */
+.vendor-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 24px;
+    margin: 0;
+}
+
+.vendor-info-grid > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.vendor-info-grid dt {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .68rem;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--cl-ink-3);
+}
+
+.vendor-info-grid dd {
+    margin: 0;
+    font-family: "Libre Baskerville", Georgia, serif;
+    font-size: .92rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--cl-ink);
+    word-break: break-word;
+}
+
+.vendor-info-grid dd a {
+    color: var(--cl-crimson);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--cl-crimson);
+    transition: color .16s ease, border-color .16s ease;
+}
+
+.vendor-info-grid dd a:hover {
+    color: var(--cl-burgundy);
+    border-bottom-style: solid;
+    border-bottom-color: var(--cl-burgundy);
+}
+
+.vendor-info-wide {
+    grid-column: 1 / -1;
+}
+
+/* ==========================================================================
+   CATEGORY TAGS
+   ========================================================================== */
+.vendor-category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.vendor-category-list span {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .68rem;
+    font-weight: 500;
+    letter-spacing: .06em;
+    color: var(--cl-burgundy);
+    background: var(--cl-crimson-soft);
+    border: 1px solid var(--cl-crimson);
+    border-radius: 999px;
+}
+
+/* ==========================================================================
+   DOCUMENT LINK
+   ========================================================================== */
+.vendor-document-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 9px 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--cl-ink);
+    background: var(--cl-paper-2);
+    border: 1px solid var(--cl-rule);
+    border-radius: var(--cl-r-xs);
+    text-decoration: none;
+    transition: all .16s ease;
+}
+
+.vendor-document-link:hover {
+    background: var(--cl-crimson);
+    color: var(--cl-card);
+    border-color: var(--cl-crimson);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px -6px rgba(139, 26, 26, .5);
+}
+
+.vendor-document-link span[aria-hidden="true"] {
+    font-size: .9rem;
+    transition: transform .2s ease;
+}
+
+.vendor-document-link:hover span[aria-hidden="true"] {
+    transform: translate(3px, -3px);
+}
+
+/* ==========================================================================
+   PRODUCTS BY CATEGORY
+   ========================================================================== */
+.vendor-category-products {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.vendor-category-products > div {
+    padding: 12px 14px;
+    background: var(--cl-panel);
+    border-left: 3px solid var(--cl-crimson);
+    border-radius: 0 var(--cl-r-xs) var(--cl-r-xs) 0;
+}
+
+.vendor-category-products h3 {
+    margin: 0 0 4px;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: -.005em;
+    color: var(--cl-crimson);
+}
+
+.vendor-category-products p {
+    margin: 0;
+    font-family: "Libre Baskerville", Georgia, serif;
+    font-size: .86rem;
+    line-height: 1.55;
+    color: var(--cl-ink-2);
+}
+
+.vendor-category-products > p {
+    padding: 8px 12px;
+    font-style: italic;
+    color: var(--cl-ink-3);
+    background: transparent;
+    border-left: 3px solid var(--cl-rule);
+}
+
+/* ==========================================================================
+   REVIEW CARD (aside)
+   ========================================================================== */
+.vendor-review-card {
+    position: relative;
+    padding: 22px 22px 20px;
+    background: var(--cl-panel);
+    border: 1.5px solid var(--cl-ink-line);
+    border-radius: var(--cl-r-sm);
+    box-shadow:
+        4px 4px 0 var(--cl-rule),
+        8px 8px 0 rgba(139, 26, 26, .08);
+}
+
+/* Wax seal accent on corner */
+.vendor-review-card::before {
+    content: "✦";
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    font-size: .9rem;
+    color: #ffffff;
+    background: var(--cl-wax);
+    border-radius: 50%;
+    box-shadow:
+        inset 0 0 0 3px rgba(255, 255, 255, .25),
+        0 3px 8px rgba(139, 26, 26, .35);
+}
+
+.vendor-review-card .vendor-eyebrow {
+    padding-left: 20px;
+    margin-bottom: 10px;
+    font-size: .62rem;
+    letter-spacing: .22em;
+}
+
+.vendor-review-card h2 {
+    margin: 0 0 16px;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: -.012em;
+    line-height: 1.15;
+    color: var(--cl-ink);
+}
+
+.vendor-review-card p {
+    margin: 0;
+    font-family: "Libre Baskerville", Georgia, serif;
+    font-size: .88rem;
+    line-height: 1.55;
+    color: var(--cl-ink-2);
+}
+
+/* ==========================================================================
+   APPROVAL FORM
+   ========================================================================== */
+.vendor-approval-form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 4px;
+    margin-bottom: 14px;
+}
+
+.vendor-approval-form label {
+    margin-top: 6px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .66rem;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--cl-ink-2);
+}
+
+.vendor-approval-form input,
+.vendor-approval-form .form-input {
+    width: 100%;
+    padding: 10px 12px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .86rem;
+    font-weight: 500;
+    color: var(--cl-ink);
+    background: var(--cl-card);
+    border: 1px solid var(--cl-rule);
+    border-radius: var(--cl-r-xs);
+    outline: none;
+    transition: border-color .16s ease, box-shadow .18s ease, background .16s ease;
+}
+
+.vendor-approval-form input::placeholder {
+    color: var(--cl-ink-3);
+    font-style: italic;
+    font-family: "Libre Baskerville", serif;
+}
+
+.vendor-approval-form input:hover {
+    border-color: var(--cl-crimson);
+}
+
+.vendor-approval-form input:focus {
+    background: #ffffff;
+    border-color: var(--cl-crimson);
+    box-shadow:
+        0 0 0 3px rgba(139, 26, 26, .14),
+        3px 3px 0 var(--cl-crimson);
+    transform: translate(-2px, -2px);
+}
+
+.vendor-approval-form small {
+    font-family: "Libre Baskerville", serif;
+    font-size: .72rem;
+    font-style: italic;
+    color: var(--cl-ink-3);
+    line-height: 1.45;
+    margin-top: 2px;
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.vendor-approve,
+.vendor-reject {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 18px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .74rem;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    border: 1.5px solid var(--cl-ink-line);
+    border-radius: var(--cl-r-xs);
+    cursor: pointer;
+    transition: transform .14s ease, box-shadow .16s ease,
+                background .16s ease, color .16s ease;
+}
+
+.vendor-approve {
+    margin-top: 14px;
+    color: var(--cl-card);
+    background: var(--cl-crimson);
+    box-shadow: 3px 3px 0 var(--cl-ink-line);
+}
+
+.vendor-approve:hover {
+    background: var(--cl-burgundy);
+    box-shadow: 4px 4px 0 var(--cl-ink-line);
+    transform: translate(-2px, -2px);
+}
+
+.vendor-approve:active {
+    box-shadow: 1px 1px 0 var(--cl-ink-line);
+    transform: none;
+}
+
+.vendor-reject-form {
+    margin-top: 8px;
+}
+
+.vendor-reject {
+    color: var(--cl-crimson);
+    background: transparent;
+    border-color: var(--cl-crimson);
+    border-style: dashed;
+    box-shadow: none;
+}
+
+.vendor-reject:hover {
+    background: var(--cl-crimson);
+    color: var(--cl-card);
+    border-style: solid;
+}
+
+/* ==========================================================================
+   LINKED ACCOUNT
+   ========================================================================== */
+.vendor-linked-account {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    background: var(--cl-paper-2);
+    border: 1px solid var(--cl-rule);
+    border-radius: var(--cl-r-xs);
+    border-left: 3px solid var(--cl-gold);
+}
+
+.vendor-linked-account span {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .66rem;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--cl-ink-3);
+}
+
+.vendor-linked-account strong {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--cl-ink);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* Tablet — stack the aside */
+@media (max-width: 900px) {
+    .vendor-detail-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .vendor-detail-aside {
+        position: static;
+    }
+}
+
+/* Small tablet */
+@media (max-width: 640px) {
+    .vendor-page {
+        padding: 16px 14px 28px;
+        background-size: 100% 26px;
+    }
+
+    .vendor-detail-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding-bottom: 18px;
+    }
+
+    .vendor-detail-heading h1 { font-size: 1.55rem; }
+
+    .vendor-status {
+        align-self: flex-start;
+        padding: 8px 16px;
+        font-size: .66rem;
+        letter-spacing: .14em;
+    }
+
+    .vendor-info-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .vendor-detail-panel { padding: 18px 16px 16px; }
+
+    .vendor-panel-index { font-size: 1.35rem; min-width: 38px; }
+    .vendor-panel-heading h2 { font-size: .94rem; }
+
+    .vendor-review-card { padding: 20px 18px 18px; }
+    .vendor-review-card h2 { font-size: 1.2rem; }
+}
+
+/* Mobile */
+@media (max-width: 420px) {
+    .vendor-page { padding: 14px 10px 22px; }
+
+    .vendor-back-link {
+        font-size: .66rem;
+        letter-spacing: .12em;
+    }
+
+    .vendor-eyebrow {
+        font-size: .6rem;
+        letter-spacing: .2em;
+        padding-left: 18px;
+    }
+
+    .vendor-detail-heading h1 { font-size: 1.35rem; }
+
+    .vendor-panel-index { font-size: 1.15rem; min-width: 34px; padding-right: 8px; }
+
+    .vendor-info-grid dt { font-size: .62rem; letter-spacing: .1em; }
+    .vendor-info-grid dd { font-size: .84rem; }
+
+    .vendor-category-products h3 { font-size: .95rem; }
+
+    .vendor-approve,
+    .vendor-reject {
+        font-size: .66rem;
+        letter-spacing: .12em;
+        padding: 11px 14px;
+    }
+}
+
+/* ==========================================================================
+   A11Y
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .vendor-page *,
+    .vendor-page *::before,
+    .vendor-page *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+    }
+}
+
+/* Focus rings */
+.vendor-page a:focus-visible,
+.vendor-page button:focus-visible,
+.vendor-page input:focus-visible {
+    outline: 2px solid var(--cl-crimson);
+    outline-offset: 2px;
+}

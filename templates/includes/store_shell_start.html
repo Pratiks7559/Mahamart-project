@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title|default:"MahaMart" }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% if page_css %}<link rel="stylesheet" href="{% static page_css %}">{% endif %}
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar{% if user.is_authenticated and user.is_superuser %} navbar-admin{% endif %}">
+            <div class="container">
+                <div class="nav-brand">
+                    <a href="{% url 'home' %}" class="brand-link">
+                        <img class="brand-logo" src="{% static 'images/mahamart-lotus-logo.svg' %}" alt="MahaMart home">
+                    </a>
+                </div>
+                <button class="nav-toggle" aria-label="Toggle navigation">
+                    <span></span><span></span><span></span>
+                </button>
+                <div class="nav-menu">
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a href="{% url 'products:product_list' %}" class="nav-link">Shop</a></li>
+                        <li class="nav-item"><a href="{% url 'products:about' %}" class="nav-link">About</a></li>
+                        <li class="nav-item"><a href="{% url 'products:help_center' %}" class="nav-link">Help</a></li>
+                        <li class="nav-item"><a href="{% url 'accounts:vendor_register' %}" class="nav-link nav-link-vendor">Sell with us</a></li>
+                        {% if user.is_authenticated and user.is_superuser %}
+                            <li class="nav-item"><a href="{% url 'products:product_list_admin' %}" class="nav-link nav-link-admin">📦 Manage Products</a></li>
+                        {% endif %}
+                        <li class="nav-item nav-right">
+                            {% if user.is_authenticated %}
+                                {% if user.is_superuser %}
+                                    <a href="{% url 'admin_dashboard:dashboard' %}" class="btn btn-admin btn-nav-admin">👑 Admin Panel</a>
+                                    <a href="{% url 'admin_dashboard:manage_vendors' %}" class="btn btn-admin-tools">🏪 Vendor Applications</a>
+                                    <form method="post" action="{% url 'admin_dashboard:admin_logout' %}" class="nav-logout-form">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-nav-logout">🚪 Logout</button>
+                                    </form>
+                                {% else %}
+                                    <div class="user-dropdown">
+                                        <button class="user-dropdown-btn">
+                                            {% if user.profile_picture %}
+                                                <img src="{{ user.profile_picture.url }}" alt="{{ user.full_name }}" class="user-avatar-small">
+                                            {% else %}
+                                                <span class="user-avatar-placeholder">{{ user.full_name|slice:":1"|upper }}</span>
+                                            {% endif %}
+                                            <span class="user-name">{{ user.full_name }}</span><span class="dropdown-arrow">▼</span>
+                                        </button>
+                                        <div class="user-dropdown-menu">
+                                            <a href="{% url 'accounts:profile' %}" class="dropdown-item">👤 My Profile</a>
+                                            <a href="#" class="dropdown-item">📦 My Orders</a>
+                                            <a href="#" class="dropdown-item">🛒 My Cart</a>
+                                            <a href="#" class="dropdown-item">❤️ Wishlist</a>
+                                            <hr><a href="{% url 'accounts:logout' %}" class="dropdown-item logout-item">🚪 Logout</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                <div class="login-dropdown">
+                                    <button type="button" class="btn btn-primary btn-nav-login login-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                                        Login <span class="dropdown-arrow" aria-hidden="true">▼</span>
+                                    </button>
+                                    <div class="user-dropdown-menu login-dropdown-menu">
+                                        <a href="{% url 'accounts:login' %}" class="dropdown-item">User Login</a>
+                                        <a href="{% url 'accounts:vendor_login' %}" class="dropdown-item">Vendor Login</a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    {% if messages %}
+        <div class="messages-container"><div class="container">
+            {% for message in messages %}<div class="message {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</div>{% endfor %}
+        </div></div>
+    {% endif %}
+    <main class="main-content">
+        {% if not full_bleed %}<div class="container">{% endif %}

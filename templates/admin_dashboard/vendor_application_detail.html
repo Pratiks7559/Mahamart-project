@@ -1,0 +1,80 @@
+{% include 'includes/admin_shell_start.html' with page_title=application.shop_name page_css='css/pages/vendor_application_detail.css' %}
+
+<section class="vendor-page vendor-detail-page">
+    <a class="vendor-back-link" href="{% url 'admin_dashboard:manage_vendors' %}">← All vendor applications</a>
+    <header class="vendor-detail-heading">
+        <div>
+            <p class="vendor-eyebrow">VENDOR APPLICATION</p>
+            <h1>{{ application.shop_name }}</h1>
+            <p class="vendor-page-subtitle">Submitted {{ application.submitted_at|date:"F j, Y · H:i" }}</p>
+        </div>
+        <span class="vendor-status vendor-status-{{ application.status }}">{{ application.get_status_display }}</span>
+    </header>
+
+    <div class="vendor-detail-layout">
+        <div class="vendor-detail-main">
+            <section class="vendor-detail-panel">
+                <div class="vendor-panel-heading"><span class="vendor-panel-index">01</span><h2>Applicant information</h2></div>
+                <dl class="vendor-info-grid">
+                    <div><dt>Full name</dt><dd>{{ application.full_name }}</dd></div>
+                    <div><dt>Email address</dt><dd><a href="mailto:{{ application.email }}">{{ application.email }}</a></dd></div>
+                    <div><dt>Mobile number</dt><dd>{{ application.phone }}</dd></div>
+                    <div class="vendor-info-wide"><dt>Business address</dt><dd>{{ application.address|linebreaksbr }}</dd></div>
+                </dl>
+            </section>
+
+            <section class="vendor-detail-panel">
+                <div class="vendor-panel-heading"><span class="vendor-panel-index">02</span><h2>Business verification</h2></div>
+                <dl class="vendor-info-grid">
+                    <div><dt>Registration number</dt><dd>{{ application.registration_number }}</dd></div>
+                    <div><dt>GST number</dt><dd>{{ application.gst_number }}</dd></div>
+                    <div><dt>PAN</dt><dd>{{ application.pan_number }}</dd></div>
+                    <div><dt>Aadhaar</dt><dd>{{ application.aadhaar_number }}</dd></div>
+                    <div class="vendor-info-wide"><dt>Shop categories</dt><dd class="vendor-category-list">{% for category in application.categories.all %}<span>{{ category.name }}</span>{% empty %}<span>None selected</span>{% endfor %}</dd></div>
+                </dl>
+                {% if application.shop_photo %}
+                    <a class="vendor-document-link" href="{{ application.shop_photo.url }}" target="_blank" rel="noopener">Open shop photo <span aria-hidden="true">↗</span></a>
+                {% endif %}
+            </section>
+
+            <section class="vendor-detail-panel">
+                <div class="vendor-panel-heading"><span class="vendor-panel-index">03</span><h2>Products offered</h2></div>
+                <div class="vendor-category-products">
+                    {% for category, products in application.products_by_category.items %}
+                        <div><h3>{{ category }}</h3><p>{{ products|join:", " }}</p></div>
+                    {% empty %}
+                        <p>No product list was provided.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+
+        <aside class="vendor-detail-aside">
+            <div class="vendor-review-card">
+                <p class="vendor-eyebrow">REVIEW ACTION</p>
+                <h2>{% if application.status == 'pending' %}Make a decision{% else %}Application reviewed{% endif %}</h2>
+                {% if application.status == 'pending' %}
+                    <form method="post" action="{% url 'admin_dashboard:approve_vendor' application.id %}" class="vendor-approval-form">
+                        {% csrf_token %}
+                        <label for="username-{{ application.id }}">Vendor login ID</label>
+                        <input id="username-{{ application.id }}" name="username" class="form-input" required autocomplete="off">
+                        <label for="password-{{ application.id }}">Temporary password</label>
+                        <input id="password-{{ application.id }}" type="password" name="password" class="form-input" required autocomplete="new-password">
+                        <small>Password will be hashed and emailed after approval.</small>
+                        <button type="submit" class="vendor-approve">Approve and email credentials</button>
+                    </form>
+                    <form method="post" action="{% url 'admin_dashboard:reject_vendor' application.id %}" class="vendor-reject-form">
+                        {% csrf_token %}
+                        <button type="submit" class="vendor-reject">Reject application</button>
+                    </form>
+                {% else %}
+                    <p>This application is {{ application.get_status_display|lower }}{% if application.reviewed_at %} on {{ application.reviewed_at|date:"M j, Y" }}{% endif %}.</p>
+                {% endif %}
+            </div>
+            {% if application.applicant %}
+                <div class="vendor-linked-account"><span>Linked account</span><strong>{{ application.applicant.username }}</strong></div>
+            {% endif %}
+        </aside>
+    </div>
+</section>
+{% include 'includes/admin_shell_end.html' %}

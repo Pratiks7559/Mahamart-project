@@ -1,0 +1,33 @@
+    {% load static %}
+        {% if not full_bleed %}</div>{% endif %}
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section"><h3>About Us</h3><p>Your trusted online store for quality products.</p></div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'products:product_list' %}">Shop</a></li>
+                        <li><a href="{% url 'accounts:vendor_register' %}">Sell with us</a></li>
+                        <li><a href="{% url 'accounts:vendor_login' %}">Vendor Login</a></li>
+                        <li><a href="{% url 'products:help_center' %}">Help center</a></li>
+                        <li><a href="{% url 'products:about' %}">About</a></li>
+                        {% if user.is_superuser %}
+                            <li><a href="{% url 'admin_dashboard:dashboard' %}">👑 Admin Panel</a></li>
+                            <li><a href="{% url 'products:product_list_admin' %}" class="footer-admin-link">📦 Manage Products</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links"><a href="#" aria-label="Facebook">📘</a><a href="#" aria-label="Twitter">🐦</a><a href="#" aria-label="Instagram">📸</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; {% now "Y" %} MahaMart. All rights reserved.</p></div>
+        </div>
+    </footer>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

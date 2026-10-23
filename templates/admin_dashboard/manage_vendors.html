@@ -1,0 +1,34 @@
+{% include 'includes/admin_shell_start.html' with page_title='Vendor Applications' page_css='css/pages/manage_vendors.css' %}
+
+<section class="vendor-page">
+    <header class="vendor-page-heading">
+        <div>
+            <p class="vendor-eyebrow">PARTNER MANAGEMENT</p>
+            <h1>Vendor applications</h1>
+            <p class="vendor-page-subtitle">Choose an application status to review its vendor records.</p>
+        </div>
+        <div class="vendor-total"><strong>{{ total_applications }}</strong><span>applications</span></div>
+    </header>
+
+    <nav class="vendor-status-grid" aria-label="Vendor application statuses">
+        <a class="vendor-status-card vendor-status-card-pending" href="{% url 'admin_dashboard:pending_vendors' %}">
+            <span class="vendor-card-label">NEEDS REVIEW</span>
+            <strong>{{ pending_count }}</strong>
+            <span class="vendor-card-title">Pending applications</span>
+            <span class="vendor-card-action">Open list <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="vendor-status-card vendor-status-card-approved" href="{% url 'admin_dashboard:approved_vendors' %}">
+            <span class="vendor-card-label">ACTIVE PARTNERS</span>
+            <strong>{{ approved_count }}</strong>
+            <span class="vendor-card-title">Approved applications</span>
+            <span class="vendor-card-action">Open list <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="vendor-status-card vendor-status-card-rejected" href="{% url 'admin_dashboard:rejected_vendors' %}">
+            <span class="vendor-card-label">CLOSED</span>
+            <strong>{{ rejected_count }}</strong>
+            <span class="vendor-card-title">Rejected applications</span>
+            <span class="vendor-card-action">Open list <span aria-hidden="true">→</span></span>
+        </a>
+    </nav>
+</section>
+{% include 'includes/admin_shell_end.html' %}

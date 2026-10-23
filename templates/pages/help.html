@@ -1,0 +1,63 @@
+{% include 'includes/store_shell_start.html' with page_title='Help Center' page_css='css/pages/info_pages.css' %}
+
+<main class="info-page help-page">
+    <section class="help-hero">
+        <span class="info-eyebrow">HERE TO MAKE THINGS EASIER</span>
+        <h1>How can we <span>help?</span></h1>
+        <p>Quick answers for browsing the shop, managing your account and getting started as a vendor.</p>
+        <a class="info-button info-button-primary" href="{% url 'products:product_list' %}">Go to the shop <span aria-hidden="true">→</span></a>
+        <span class="help-hero-spark help-hero-spark-one" aria-hidden="true">✦</span>
+        <span class="help-hero-spark help-hero-spark-two" aria-hidden="true">✳</span>
+    </section>
+
+    <section class="help-topics" aria-label="Help topics">
+        <a class="help-topic" href="#shopping-help"><span aria-hidden="true">⌕</span><strong>Shopping</strong><small>Finding products</small></a>
+        <a class="help-topic" href="#account-help"><span aria-hidden="true">☺</span><strong>Your account</strong><small>Sign in and register</small></a>
+        <a class="help-topic" href="#vendor-help"><span aria-hidden="true">↗</span><strong>For vendors</strong><small>Apply and list products</small></a>
+    </section>
+
+    <section class="help-faq">
+        <div class="help-section-heading">
+            <span class="info-eyebrow">THE QUICK ANSWERS</span>
+            <h2>Frequently asked questions</h2>
+        </div>
+
+        <div class="help-faq-grid">
+            <article class="help-faq-card" id="shopping-help">
+                <span class="faq-index">01 / SHOPPING</span>
+                <h3>How do I find a product?</h3>
+                <p>Open Shop to browse available products, use the search box to look for a name or keyword, or choose a category from the shop page.</p>
+                <a href="{% url 'products:product_list' %}">Browse the shop <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="help-faq-card" id="account-help">
+                <span class="faq-index">02 / YOUR ACCOUNT</span>
+                <h3>How do I sign in or register?</h3>
+                <p>Choose User Login in the navbar to sign in with your registered mobile number and password. New here? Create an account to get started.</p>
+                <a href="{% url 'accounts:login' %}">Go to user login <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="help-faq-card" id="vendor-help">
+                <span class="faq-index">03 / VENDORS</span>
+                <h3>How do I sell on the shop?</h3>
+                <p>Submit a vendor application. After it is reviewed, approved vendors receive login details and can submit products for admin review.</p>
+                <a href="{% url 'accounts:vendor_register' %}">Apply to become a vendor <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="help-faq-card">
+                <span class="faq-index">04 / PRODUCT REVIEWS</span>
+                <h3>Why isn't my product showing?</h3>
+                <p>Vendor-submitted products are reviewed before they appear in the store. Vendors can sign in to check product review status in their portal.</p>
+                <a href="{% url 'accounts:vendor_login' %}">Open vendor login <span aria-hidden="true">→</span></a>
+            </article>
+        </div>
+    </section>
+
+    <section class="help-bottom">
+        <div>
+            <span class="info-eyebrow">STILL EXPLORING?</span>
+            <h2>Start with a look around.</h2>
+            <p>The shop is the easiest place to discover what's available today.</p>
+        </div>
+        <a class="info-button info-button-primary" href="{% url 'products:product_list' %}">Explore products <span aria-hidden="true">→</span></a>
+    </section>
+</main>
+
+{% include 'includes/store_shell_end.html' %}

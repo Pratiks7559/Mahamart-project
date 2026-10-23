@@ -1,0 +1,1177 @@
+/* ==========================================================================
+   VENDOR REGISTRATION — "COMPACT 3-COLUMN" EDITION
+   Place at: static/css/pages/vendor_register.css
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* ==========================================================================
+   TOKENS
+   ========================================================================== */
+:root {
+    --vr-bg-1:       #fffaf6;
+    --vr-bg-2:       #fdf3ec;
+    --vr-card:       #ffffff;
+
+    --vr-line:       #f1e6dc;
+    --vr-line-2:     #e7d7c8;
+
+    --vr-ink:        #2b1c2b;
+    --vr-ink-2:      #6e5c6a;
+    --vr-ink-3:      #a3949f;
+
+    --vr-rose:       #e94f7c;
+    --vr-rose-soft:  #fdeaf0;
+    --vr-rose-ring:  rgba(233, 79, 124, .18);
+
+    --vr-gold:       #d9a441;
+    --vr-gold-2:     #f0c367;
+    --vr-plum:       #6b2a52;
+    --vr-mint:       #14a37f;
+    --vr-danger:     #d93b54;
+
+    --vr-r-xs: 7px;
+    --vr-r-sm: 10px;
+    --vr-r-md: 13px;
+    --vr-r-lg: 18px;
+
+    --vr-shadow-sm: 0 6px 16px -10px rgba(107, 42, 82, .22);
+    --vr-shadow-md: 0 16px 38px -22px rgba(107, 42, 82, .28);
+    --vr-shadow-lg: 0 30px 62px -32px rgba(107, 42, 82, .34),
+                    0 10px 22px -16px rgba(233, 79, 124, .16);
+}
+
+/* ==========================================================================
+   PAGE SHELL
+   ========================================================================== */
+.auth-container {
+    position: relative;
+    padding: clamp(16px, 2.4vw, 36px) clamp(12px, 2vw, 24px) clamp(36px, 4vw, 60px);
+    display: flex;
+    justify-content: center;
+    font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+    color: var(--vr-ink);
+}
+
+.auth-container::before {
+    content: "";
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1100px, 96%);
+    height: 320px;
+    background: radial-gradient(ellipse at center,
+        rgba(233, 79, 124, .10), transparent 68%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ==========================================================================
+   CARD — full-width
+   ========================================================================== */
+.auth-card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1200px;
+    padding: clamp(20px, 2.2vw, 32px) clamp(20px, 2.6vw, 38px) clamp(24px, 2.6vw, 38px);
+    background: var(--vr-card);
+    border: 1px solid var(--vr-line);
+    border-radius: var(--vr-r-lg);
+    box-shadow: var(--vr-shadow-lg);
+    animation: vrIn .5s cubic-bezier(.2, .85, .3, 1) both;
+    overflow: hidden;
+}
+
+.auth-card-large { max-width: 1200px; }
+
+@keyframes vrIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.auth-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+        #e94f7c 0%, #ffb347 45%, #d9a441 75%, #8b6bff 100%);
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+.auth-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--vr-line);
+}
+
+.auth-header h2 {
+    margin: 0 0 6px;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+    font-weight: 900;
+    letter-spacing: -.026em;
+    line-height: 1.15;
+    color: var(--vr-ink);
+}
+
+.auth-header h2::after {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 3px;
+    margin-top: 8px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--vr-rose), var(--vr-gold));
+}
+
+.auth-header p {
+    margin: 0;
+    font-size: .84rem;
+    font-weight: 500;
+    color: var(--vr-ink-2);
+}
+
+/* ==========================================================================
+   VENDOR NOTE — inline compact
+   ========================================================================== */
+.vendor-note {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 9px 14px 9px 40px;
+    font-size: .78rem;
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--vr-plum);
+    background: linear-gradient(135deg, #fff6ee 0%, #fdf1f6 100%);
+    border: 1px solid var(--vr-line);
+    border-left: 3px solid var(--vr-gold);
+    border-radius: var(--vr-r-sm);
+}
+
+.vendor-note::before {
+    content: "ℹ";
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: .74rem;
+    font-weight: 900;
+    font-style: italic;
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--vr-gold), var(--vr-gold-2));
+    border-radius: 50%;
+    box-shadow: 0 4px 10px -4px rgba(217, 164, 65, .9);
+}
+
+/* ==========================================================================
+   TOP ERRORS
+   ========================================================================== */
+.field-errors[role="alert"] {
+    margin-bottom: 14px;
+    padding: 12px 15px;
+    font-size: .78rem;
+    font-weight: 500;
+    color: #a3202f;
+    background: #fdeef0;
+    border: 1px solid #f8d3da;
+    border-left: 3px solid var(--vr-danger);
+    border-radius: var(--vr-r-sm);
+}
+
+.field-errors[role="alert"] > ul {
+    margin: 8px 0 0;
+    padding-left: 16px;
+    list-style: disc;
+}
+
+.field-errors[role="alert"] > ul li {
+    margin: 3px 0;
+    line-height: 1.45;
+}
+
+.field-errors[role="alert"] > ul li a {
+    color: var(--vr-danger);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* ==========================================================================
+   FORM — 3 COLUMNS, COMPACT
+   ========================================================================== */
+.vendor-form {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px 14px;
+    align-items: start;
+}
+
+/* Full-width fields (auto-detect via :has) */
+.vendor-form .form-group:has(textarea),
+.vendor-form .form-group:has(input[type="file"]),
+.vendor-form .form-group:has(input[type="email"]),
+.vendor-form .form-group:has(select[multiple]) {
+    grid-column: 1 / -1;
+}
+
+/* Full-width submit */
+.vendor-form .btn-full {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+}
+
+/* ==========================================================================
+   FORM GROUP
+   ========================================================================== */
+.vendor-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.vendor-form .form-group > label {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    color: var(--vr-ink);
+    transition: color .18s ease;
+    line-height: 1.25;
+}
+
+.vendor-form .form-group:focus-within > label {
+    color: var(--vr-rose);
+}
+
+/* ==========================================================================
+   INPUTS — COMPACT
+   ========================================================================== */
+.vendor-form input[type="text"],
+.vendor-form input[type="email"],
+.vendor-form input[type="password"],
+.vendor-form input[type="tel"],
+.vendor-form input[type="url"],
+.vendor-form input[type="number"],
+.vendor-form select,
+.vendor-form textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 9px 12px;
+    font-family: inherit;
+    font-size: .86rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--vr-ink);
+    background: #fbfaf8;
+    border: 1.5px solid var(--vr-line);
+    border-radius: var(--vr-r-sm);
+    outline: none;
+    transition: border-color .16s ease, box-shadow .2s ease,
+                background .16s ease, transform .16s ease;
+}
+
+.vendor-form input::placeholder,
+.vendor-form textarea::placeholder {
+    color: var(--vr-ink-3);
+}
+
+.vendor-form input:hover,
+.vendor-form select:hover,
+.vendor-form textarea:hover {
+    background: #ffffff;
+    border-color: var(--vr-line-2);
+}
+
+.vendor-form input:focus,
+.vendor-form select:focus,
+.vendor-form textarea:focus {
+    background: #ffffff;
+    border-color: var(--vr-rose);
+    box-shadow:
+        0 0 0 3px var(--vr-rose-ring),
+        0 6px 16px -10px rgba(233, 79, 124, .5);
+    transform: translateY(-1px);
+}
+
+.vendor-form textarea {
+    min-height: 84px;
+    resize: vertical;
+    line-height: 1.55;
+    grid-column: 1 / -1;
+}
+
+/* Select arrow */
+.vendor-form select {
+    padding-right: 34px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%23e94f7c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 11px center;
+    background-size: 10px 7px;
+}
+
+/* File input */
+.vendor-form input[type="file"] {
+    padding: 8px;
+    font-size: .74rem;
+    color: var(--vr-ink-2);
+    background: linear-gradient(135deg, #fff7f3, #fffbf6);
+    border: 1.5px dashed var(--vr-line-2);
+    cursor: pointer;
+    grid-column: 1 / -1;
+}
+
+.vendor-form input[type="file"]:hover {
+    border-color: var(--vr-rose);
+    background: linear-gradient(135deg, #fff2ec, #fff8f1);
+}
+
+.vendor-form input[type="file"]::file-selector-button {
+    margin-right: 10px;
+    padding: 6px 12px;
+    font-family: inherit;
+    font-size: .72rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--vr-rose), var(--vr-gold));
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 6px 12px -6px rgba(233, 79, 124, .85);
+    transition: filter .16s ease, transform .16s ease;
+}
+
+.vendor-form input[type="file"]::file-selector-button:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+/* Checkboxes inline */
+.vendor-form input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--vr-rose);
+    cursor: pointer;
+}
+
+.vendor-form .form-group:has(input[type="checkbox"]) {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding-top: 22px;
+}
+
+.vendor-form .form-group:has(input[type="checkbox"]) > label {
+    order: 2;
+    font-size: .78rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   HELP TEXT
+   ========================================================================== */
+.vendor-form .form-group small {
+    display: block;
+    font-size: .68rem;
+    line-height: 1.45;
+    font-weight: 500;
+    color: var(--vr-ink-3);
+    padding-left: 2px;
+}
+
+.vendor-form .form-group small ul {
+    margin: 3px 0 0;
+    padding-left: 14px;
+    list-style: disc;
+}
+
+.vendor-form .form-group small ul li { margin: 1px 0; }
+
+/* ==========================================================================
+   INLINE FIELD ERRORS
+   ========================================================================== */
+.vendor-form .form-group .field-errors {
+    padding: 5px 9px;
+    font-size: .68rem;
+    font-weight: 600;
+    color: var(--vr-danger);
+    background: #fdeef0;
+    border-left: 3px solid var(--vr-danger);
+    border-radius: 5px;
+    margin-top: 1px;
+}
+
+/* ==========================================================================
+   SUBMIT BUTTON
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: .86rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: .008em;
+    text-decoration: none;
+    white-space: nowrap;
+    border: 1.5px solid transparent;
+    border-radius: var(--vr-r-sm);
+    cursor: pointer;
+    transition: transform .16s ease, box-shadow .2s ease,
+                background .2s ease, color .2s ease, filter .2s ease;
+}
+
+.btn-full {
+    width: 100%;
+    padding: 12px 22px;
+    font-size: .9rem;
+    border-radius: var(--vr-r-md);
+}
+
+.btn-primary {
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--vr-rose) 0%, #ff9d7f 55%, var(--vr-gold) 100%);
+    box-shadow: 0 12px 24px -10px rgba(233, 79, 124, .85);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.06);
+    transform: translateY(-2px);
+    box-shadow: 0 18px 30px -12px rgba(233, 79, 124, 1);
+}
+
+.btn-primary:active { transform: translateY(0) scale(.99); }
+
+.btn-primary:focus-visible {
+    outline: 3px solid var(--vr-rose-ring);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   AUTH FOOTER
+   ========================================================================== */
+.auth-footer {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--vr-line);
+    text-align: center;
+    font-size: .82rem;
+    font-weight: 500;
+    color: var(--vr-ink-2);
+}
+
+.auth-footer a {
+    display: inline-block;
+    color: var(--vr-rose);
+    font-weight: 700;
+    text-decoration: none;
+    padding: 2px;
+    border-bottom: 2px solid transparent;
+    transition: color .16s ease, border-color .16s ease, transform .16s ease;
+}
+
+.auth-footer a:hover {
+    color: var(--vr-plum);
+    border-bottom-color: var(--vr-rose);
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* Tablet — 2 columns */
+@media (max-width: 900px) {
+    .vendor-form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px 12px;
+    }
+
+    .vendor-form .form-group:nth-child(3n):last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Small tablet */
+@media (max-width: 640px) {
+    .auth-card {
+        border-radius: var(--vr-r-md);
+        padding: 20px 16px 24px;
+    }
+
+    .auth-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .auth-header h2 { font-size: 1.3rem; }
+    .auth-header p { font-size: .8rem; }
+
+    .vendor-note {
+        padding: 9px 12px 9px 36px;
+        font-size: .74rem;
+    }
+
+    .vendor-note::before { width: 16px; height: 16px; left: 11px; font-size: .68rem; }
+
+    .vendor-form {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .vendor-form .form-group:nth-child(3n):last-child {
+        grid-column: auto;
+    }
+
+    .vendor-form textarea { min-height: 76px; }
+
+    .btn-full { padding: 11px 18px; font-size: .86rem; }
+}
+
+/* Very small */
+@media (max-width: 400px) {
+    .auth-container { padding-left: 10px; padding-right: 10px; }
+    .auth-card { padding: 16px 13px 20px; border-radius: 15px; }
+    .auth-header h2 { font-size: 1.15rem; }
+    .auth-header h2::after { width: 36px; height: 2.5px; }
+    .vendor-form input,
+    .vendor-form select,
+    .vendor-form textarea { padding: 8px 10px; font-size: .82rem; }
+}
+
+/* ==========================================================================
+   A11Y
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .auth-card { animation: none !important; }
+    .auth-container *,
+    .auth-container *::before,
+    .auth-container *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+    }
+}
+
+/* Autofill */
+.vendor-form input:-webkit-autofill {
+    -webkit-text-fill-color: var(--vr-ink);
+    -webkit-box-shadow: 0 0 0 1000px #fffdfb inset;
+    box-shadow: 0 0 0 1000px #fffdfb inset;
+}/* ==========================================================================
+   VENDOR REGISTRATION — "SLATE COMPACT" EDITION
+   Place at: static/css/pages/vendor_register.css
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+/* ==========================================================================
+   TOKENS
+   ========================================================================== */
+:root {
+    --vr-bg:          #f4f6fb;
+    --vr-card:        #ffffff;
+    --vr-soft:        #f8fafc;
+
+    --vr-line:        #e4e7ef;
+    --vr-line-2:      #cdd3e0;
+
+    --vr-ink:         #1e293b;
+    --vr-ink-2:       #64748b;
+    --vr-ink-3:       #94a3b8;
+
+    --vr-indigo:      #4f46e5;
+    --vr-indigo-2:    #6366f1;
+    --vr-indigo-soft: #eef0ff;
+    --vr-indigo-ring: rgba(79, 70, 229, .14);
+
+    --vr-coral:       #f97362;
+    --vr-amber:       #f59e0b;
+    --vr-mint:        #10b981;
+    --vr-danger:      #dc2626;
+    --vr-danger-soft: #fef2f2;
+
+    --vr-r-xs: 6px;
+    --vr-r-sm: 8px;
+    --vr-r-md: 10px;
+    --vr-r-lg: 14px;
+
+    --vr-shadow-card: 0 1px 2px rgba(15, 23, 42, .04),
+                      0 12px 32px -18px rgba(15, 23, 42, .18);
+    --vr-shadow-focus: 0 0 0 3px var(--vr-indigo-ring);
+}
+
+/* ==========================================================================
+   PAGE SHELL
+   ========================================================================== */
+.auth-container {
+    position: relative;
+    padding: clamp(14px, 2vw, 28px) clamp(10px, 1.8vw, 22px) clamp(30px, 4vw, 54px);
+    display: flex;
+    justify-content: center;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    color: var(--vr-ink);
+    background:
+        linear-gradient(rgba(79, 70, 229, .022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79, 70, 229, .022) 1px, transparent 1px),
+        var(--vr-bg);
+    background-size: 26px 26px, 26px 26px, auto;
+}
+
+/* ==========================================================================
+   CARD
+   ========================================================================== */
+.auth-card {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    padding: clamp(18px, 2vw, 28px) clamp(18px, 2.2vw, 34px) clamp(22px, 2.4vw, 34px);
+    background: var(--vr-card);
+    border: 1px solid var(--vr-line);
+    border-radius: var(--vr-r-lg);
+    box-shadow: var(--vr-shadow-card);
+    animation: vrIn .42s cubic-bezier(.2, .85, .3, 1) both;
+}
+
+.auth-card-large { max-width: 1280px; }
+
+@keyframes vrIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* Thin left accent bar */
+.auth-card::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    left: 0;
+    width: 3px;
+    border-radius: 0 4px 4px 0;
+    background: linear-gradient(180deg, var(--vr-indigo) 0%, var(--vr-coral) 100%);
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+.auth-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--vr-line);
+}
+
+.auth-header h2 {
+    margin: 0;
+    font-family: "Manrope", system-ui, sans-serif;
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    font-weight: 800;
+    letter-spacing: -.024em;
+    color: var(--vr-ink);
+}
+
+.auth-header p {
+    margin: 0;
+    font-size: .8rem;
+    font-weight: 500;
+    color: var(--vr-ink-2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-header p::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--vr-mint);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, .16);
+}
+
+/* ==========================================================================
+   VENDOR NOTE
+   ========================================================================== */
+.vendor-note {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 14px;
+    padding: 8px 12px 8px 34px;
+    font-size: .76rem;
+    line-height: 1.5;
+    font-weight: 500;
+    color: #78350f;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 3px solid var(--vr-amber);
+    border-radius: var(--vr-r-xs);
+}
+
+.vendor-note::before {
+    content: "!";
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: grid;
+    place-items: center;
+    width: 16px;
+    height: 16px;
+    font-family: "Manrope", sans-serif;
+    font-size: .72rem;
+    font-weight: 800;
+    color: #ffffff;
+    background: var(--vr-amber);
+    border-radius: 50%;
+}
+
+/* ==========================================================================
+   TOP ERRORS
+   ========================================================================== */
+.field-errors[role="alert"] {
+    margin-bottom: 12px;
+    padding: 10px 14px;
+    font-size: .76rem;
+    font-weight: 500;
+    color: #991b1b;
+    background: var(--vr-danger-soft);
+    border: 1px solid #fecaca;
+    border-left: 3px solid var(--vr-danger);
+    border-radius: var(--vr-r-xs);
+}
+
+.field-errors[role="alert"] > ul {
+    margin: 6px 0 0;
+    padding-left: 16px;
+    list-style: disc;
+}
+
+.field-errors[role="alert"] > ul li {
+    margin: 2px 0;
+    line-height: 1.4;
+}
+
+.field-errors[role="alert"] > ul li a {
+    color: var(--vr-danger);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   FORM — 3 COLUMNS COMPACT
+   ========================================================================== */
+.vendor-form {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px 12px;
+    align-items: start;
+    counter-reset: vfield;
+}
+
+/* Full-width fields */
+.vendor-form .form-group:has(textarea),
+.vendor-form .form-group:has(input[type="file"]),
+.vendor-form .form-group:has(select[multiple]) {
+    grid-column: 1 / -1;
+}
+
+.vendor-form .btn-full {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+}
+
+/* ==========================================================================
+   FORM GROUP
+   ========================================================================== */
+.vendor-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    counter-increment: vfield;
+}
+
+.vendor-form .form-group > label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .015em;
+    color: var(--vr-ink);
+    transition: color .16s ease;
+    line-height: 1.25;
+    text-transform: uppercase;
+}
+
+.vendor-form .form-group > label::before {
+    content: counter(vfield, decimal-leading-zero);
+    font-family: "Manrope", sans-serif;
+    font-size: .62rem;
+    font-weight: 800;
+    color: var(--vr-ink-3);
+    letter-spacing: 0;
+    padding: 1px 5px;
+    background: var(--vr-soft);
+    border: 1px solid var(--vr-line);
+    border-radius: 4px;
+    transition: color .16s ease, background .16s ease, border-color .16s ease;
+}
+
+.vendor-form .form-group:focus-within > label { color: var(--vr-indigo); }
+
+.vendor-form .form-group:focus-within > label::before {
+    color: #ffffff;
+    background: var(--vr-indigo);
+    border-color: var(--vr-indigo);
+}
+
+/* Hide number for full-width fields (textarea/file) */
+.vendor-form .form-group:has(textarea) > label::before,
+.vendor-form .form-group:has(input[type="file"]) > label::before {
+    display: none;
+}
+
+/* ==========================================================================
+   INPUTS — COMPACT
+   ========================================================================== */
+.vendor-form input[type="text"],
+.vendor-form input[type="email"],
+.vendor-form input[type="password"],
+.vendor-form input[type="tel"],
+.vendor-form input[type="url"],
+.vendor-form input[type="number"],
+.vendor-form select,
+.vendor-form textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px 11px;
+    font-family: inherit;
+    font-size: .84rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--vr-ink);
+    background: var(--vr-soft);
+    border: 1px solid var(--vr-line);
+    border-radius: var(--vr-r-xs);
+    outline: none;
+    transition: border-color .14s ease, box-shadow .16s ease,
+                background .14s ease;
+}
+
+.vendor-form input::placeholder,
+.vendor-form textarea::placeholder {
+    color: var(--vr-ink-3);
+    font-size: .82rem;
+}
+
+.vendor-form input:hover,
+.vendor-form select:hover,
+.vendor-form textarea:hover {
+    border-color: var(--vr-line-2);
+}
+
+.vendor-form input:focus,
+.vendor-form select:focus,
+.vendor-form textarea:focus {
+    background: #ffffff;
+    border-color: var(--vr-indigo);
+    box-shadow: var(--vr-shadow-focus);
+}
+
+.vendor-form textarea {
+    min-height: 78px;
+    resize: vertical;
+    line-height: 1.55;
+    grid-column: 1 / -1;
+    font-size: .84rem;
+}
+
+/* Select arrow */
+.vendor-form select {
+    padding-right: 32px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%234f46e5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px 7px;
+}
+
+/* File input */
+.vendor-form input[type="file"] {
+    padding: 7px;
+    font-size: .72rem;
+    color: var(--vr-ink-2);
+    background: var(--vr-soft);
+    border: 1px dashed var(--vr-line-2);
+    cursor: pointer;
+    grid-column: 1 / -1;
+}
+
+.vendor-form input[type="file"]:hover {
+    border-color: var(--vr-indigo);
+    background: var(--vr-indigo-soft);
+}
+
+.vendor-form input[type="file"]::file-selector-button {
+    margin-right: 9px;
+    padding: 5px 11px;
+    font-family: "Manrope", sans-serif;
+    font-size: .7rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: var(--vr-indigo);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background .14s ease;
+}
+
+.vendor-form input[type="file"]::file-selector-button:hover {
+    background: #4338ca;
+}
+
+/* Checkboxes */
+.vendor-form input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--vr-indigo);
+    cursor: pointer;
+}
+
+.vendor-form .form-group:has(input[type="checkbox"]) {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding-top: 20px;
+}
+
+.vendor-form .form-group:has(input[type="checkbox"]) > label {
+    order: 2;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: .76rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.vendor-form .form-group:has(input[type="checkbox"]) > label::before { display: none; }
+
+/* ==========================================================================
+   HELP TEXT
+   ========================================================================== */
+.vendor-form .form-group small {
+    display: block;
+    font-size: .66rem;
+    line-height: 1.45;
+    font-weight: 500;
+    color: var(--vr-ink-3);
+    padding-left: 1px;
+}
+
+.vendor-form .form-group small ul {
+    margin: 3px 0 0;
+    padding-left: 14px;
+    list-style: disc;
+}
+
+/* ==========================================================================
+   INLINE ERRORS
+   ========================================================================== */
+.vendor-form .form-group .field-errors {
+    padding: 4px 8px;
+    font-size: .66rem;
+    font-weight: 600;
+    color: var(--vr-danger);
+    background: var(--vr-danger-soft);
+    border-left: 2px solid var(--vr-danger);
+    border-radius: 4px;
+    margin-top: 1px;
+}
+
+/* ==========================================================================
+   SUBMIT BUTTON
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 18px;
+    font-family: "Manrope", system-ui, sans-serif;
+    font-size: .84rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: .005em;
+    text-decoration: none;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    border-radius: var(--vr-r-sm);
+    cursor: pointer;
+    transition: transform .14s ease, box-shadow .18s ease,
+                background .16s ease, color .16s ease, filter .16s ease;
+}
+
+.btn-full {
+    width: 100%;
+    padding: 11px 20px;
+    font-size: .88rem;
+    border-radius: var(--vr-r-sm);
+}
+
+.btn-primary {
+    color: #ffffff;
+    background: var(--vr-indigo);
+    box-shadow: 0 6px 14px -6px rgba(79, 70, 229, .6);
+}
+
+.btn-primary:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px -8px rgba(79, 70, 229, .8);
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+.btn-primary:focus-visible {
+    outline: 3px solid var(--vr-indigo-ring);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   AUTH FOOTER
+   ========================================================================== */
+.auth-footer {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--vr-line);
+    text-align: center;
+    font-size: .8rem;
+    font-weight: 500;
+    color: var(--vr-ink-2);
+}
+
+.auth-footer a {
+    display: inline-block;
+    color: var(--vr-indigo);
+    font-weight: 700;
+    text-decoration: none;
+    padding: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color .14s ease, border-color .14s ease;
+}
+
+.auth-footer a:hover {
+    color: var(--vr-coral);
+    border-bottom-color: var(--vr-coral);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* Tablet — 2 columns */
+@media (max-width: 900px) {
+    .vendor-form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .vendor-form .form-group:nth-child(3n):last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Small tablet / large phone */
+@media (max-width: 640px) {
+    .auth-card { border-radius: var(--vr-r-md); padding: 16px 14px 20px; }
+    .auth-card::before { top: 10px; bottom: 10px; }
+
+    .auth-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .auth-header h2 { font-size: 1.15rem; }
+    .auth-header p { font-size: .76rem; }
+
+    .vendor-note { padding: 8px 11px 8px 32px; font-size: .72rem; }
+    .vendor-note::before { width: 14px; height: 14px; left: 10px; font-size: .66rem; }
+
+    .vendor-form {
+        grid-template-columns: 1fr;
+        gap: 9px;
+    }
+
+    .vendor-form .form-group:nth-child(3n):last-child {
+        grid-column: auto;
+    }
+
+    .vendor-form textarea { min-height: 72px; }
+
+    .btn-full { padding: 10px 16px; font-size: .82rem; }
+}
+
+/* Very small */
+@media (max-width: 400px) {
+    .auth-container { padding-left: 8px; padding-right: 8px; }
+    .auth-card { padding: 14px 12px 18px; }
+    .auth-header h2 { font-size: 1.05rem; }
+    .vendor-form input,
+    .vendor-form select,
+    .vendor-form textarea { padding: 7px 9px; font-size: .8rem; }
+}
+
+/* ==========================================================================
+   A11Y
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .auth-card { animation: none !important; }
+    .auth-container *,
+    .auth-container *::before,
+    .auth-container *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+    }
+}
+
+.vendor-form input:-webkit-autofill {
+    -webkit-text-fill-color: var(--vr-ink);
+    -webkit-box-shadow: 0 0 0 1000px #f8fafc inset;
+    box-shadow: 0 0 0 1000px #f8fafc inset;
+}
+
+@media (min-width: 901px) {
+    .vendor-form .form-group:has(input[type="email"]),
+    .vendor-form .form-group:has(textarea) {
+        grid-column: auto;
+    }
+}
